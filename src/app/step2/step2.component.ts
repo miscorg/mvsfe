@@ -107,6 +107,7 @@ export class Step2Component implements OnInit {
   nextPage()
   {
     console.log(this.atmSel);
+    sessionStorage.setItem("atmSel", JSON.stringify(this.atmSel));
     this._router.navigate(["angstep3", this.branch.branchId]);
   }
 }

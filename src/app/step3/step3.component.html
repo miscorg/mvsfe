@@ -13,53 +13,53 @@
 
   <label class="col-md-6" style="color:blue">Branch Manager</label>
 
-  <div class="row sbirow" th:object="${brmgr}">
+  <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.branchManager.pfId">
+          <input class="form-control" type="text" [(ngModel)]="branchManager.pfId">
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Name:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.branchManager.name" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.name" >
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Phone:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.branchManager.mobileNumber" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.mobileNumber" >
       </div>
   </div>
 
-  <div class="row sbirow" th:object="${brmgr">
+  <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.branchManager.emailIdOfficial" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdOfficial" >
       </div>
       <div class="col-md-6 form-group">
           <label class="col-md-6">Designated Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.branchManager.emailIdDesignated" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdDesignated" >
       </div>
   </div>
 
   <label class="col-md-6" style="color:blue">ATM Officer</label>
 
-  <div class="row sbirow" th:object="${atmofr}">
+  <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.atmOfficer.pfId">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.pfId">
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Name:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.atmOfficer.name">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.name">
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Phone:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.atmOfficer.mobileNumber">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.mobileNumber">
       </div>
   </div>
 
-  <div class="row sbirow" th:object="${atmofr}">
+  <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchObj.branchPeopleData.atmOfficer.emailIdOfficial">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.emailIdOfficial">
       </div>
   </div>
 
