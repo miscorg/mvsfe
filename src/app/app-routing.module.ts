@@ -7,7 +7,7 @@ import { Step3Component } from 'src/app/step3/step3.component';
 const routes: Routes = [
   {path: '', component: Step1Component},
   {path: 'angstep2', component: Step2Component},
-  {path: 'angstep3', component: Step3Component}
+  {path: 'angstep3/:branchId', component: Step3Component}
 ];
 
 @NgModule({

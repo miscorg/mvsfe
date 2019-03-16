@@ -7,11 +7,11 @@
         </div>
         <div class="col-md-4">
             <label class="sbilabel">Cash Link Branch</label>
-            <input type="radio" [(ngModel)]="brtype" value="owner" />
+            <input type="radio" [(ngModel)]="brtype" value="cashLink" (change)="branch=null" />
         </div>
         <div class="col-md-4">
             <label class="sbilabel">Owner Branch</label>
-            <input type="radio" [(ngModel)]="brtype" value="cashLink"/>
+            <input type="radio" [(ngModel)]="brtype" value="owner" (change)="branch=null"/>
         </div>
     </div>
 
@@ -19,7 +19,7 @@
         <div class="col-md-3 form-group"></div>
         <div class="col-md-4">
             <label class="sbilabel">Select Cash Link Branch:</label>                
-            <select [(ngModel)]="cashbranchin" (change)="updateATMs()" class="sbiselect form-control">
+            <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='cashLink'">
                 <option value="null" disabled>-- Select One --</option>
                 <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
             </select>
@@ -27,7 +27,7 @@
 
         <div class="col-md-4">
             <label class="sbilabel">Select Owner Branch:</label>                
-            <select [(ngModel)]="ownerbranchin" (change)="updateATMs()" class="sbiselect form-control">
+            <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='owner'">
                 <option value="null" disabled >-- Select One --</option>
                 <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
             </select>
@@ -48,26 +48,26 @@
             </div>    
     </div>
         
-    <div class="row sbirow col-md-12" >            
+    <div class="row sbirow col-md-12">            
         <div id="row2Sel3" class="col-md-3">
             <label class="sbilabel">Site Type</label>
             <select [(ngModel)]="atmSel.siteType" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>
-                <option *ngFor="let site of siteList"  [ngValue]="site" ></option>
+                <option *ngFor="let site of siteList" [ngValue]="site">{{site}}</option>
             </select>
         </div>
         <div id="row2Sel3" class="col-md-3">
             <label class="sbilabel">Ownership Type</label>
             <select [(ngModel)]="atmSel.ownershipType" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let ownership of ownershipTypeList"  [ngValue]="ownership" ></option>
+                <option *ngFor="let ownership of ownershipTypeList" [ngValue]="ownership">{{ownership}}</option>
             </select>
         </div>
         <div class="col-md-3">
             <label class="sbilabel">N/W Type</label>
             <select [(ngModel)]="atmSel.networkType" class="sbiselect form-control"> 
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let nwType of nwTypeList"  [ngValue]="nwType" ></option>
+                <option *ngFor="let nwType of nwTypeList" [ngValue]="nwType">{{nwType}}</option>
             </select>
         </div>
     </div>
@@ -77,21 +77,21 @@
             <label class="sbilabel">Oem</label>
             <select [(ngModel)]="atmSel.oem" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let oemIn of oemList" [ngValue]="oemIn" ></option>
+                <option *ngFor="let oemIn of oemList" [ngValue]="oemIn">{{oemIn}}</option>
             </select>
         </div>
         <div class="col-md-3">
             <label class="sbilabel">Model</label>
             <select [(ngModel)]="atmSel.model" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let modeln of modelList"  [ngValue]="modeln" ></option>
+                <option *ngFor="let modeln of modelList" [ngValue]="modeln">{{modeln}}</option>
             </select>
         </div>
         <div class="col-md-3">
             <label class="sbilabel">MS Vendor</label>
             <select [(ngModel)]="atmSel.msVendor" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let msVendor of msVendorList"  [ngValue]="msVendor" ></option>
+                <option *ngFor="let msVendor of msVendorList" [ngValue]="msVendor">{{msVendor}}</option>
             </select>
         </div>        
     </div>
@@ -101,20 +101,20 @@
             <label class="sbilabel">Cash Replenishment</label>
             <select [(ngModel)]="atmSel.oem" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let oemIn of cashRepList" [ngValue]="oemIn" ></option>
+                <option *ngFor="let oemIn of cashRepList" [ngValue]="oemIn">{{oemIn}}</option>
             </select>
         </div>
         <div class="col-md-3">
             <label class="sbilabel">Phase</label>
             <select [(ngModel)]="atmSel.model" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
-                <option *ngFor="let modeln of phaseList"  [ngValue]="modeln" ></option>
+                <option *ngFor="let modeln of phaseList" [ngValue]="modeln">{{modeln}}</option>
             </select>
         </div>
     </div>
         
     <div class="row sbirow">
-        <fieldset class="sbifieldset col-md-12" >
+        <fieldset class="sbifieldset col-md-12">
             <legend>ATM Info</legend>
             <div class="row">
                 <label class="col-md-2" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
@@ -129,7 +129,7 @@
             <div class="row sbirow">
                 <div class="col-md-3">
                     <label>Landmark:</label>
-                    <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.landmark" >
+                    <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.landmark">
 
                     <label>TMK Available with Branch:</label>
                     <select class="sbiselect form-control">
@@ -140,41 +140,41 @@
                 </div>
 
                 <div class="col-md-4">
-                    <fieldset class="sbifieldset col-md-12" >
+                    <fieldset class="sbifieldset col-md-12">
                         <legend>BASE24 Switch</legend>
                         <div class="form-group">
                             <label>DNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns">
 
                             <label>Port:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port">
 
                             <label>PrefDNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns">
 
                             <label>AltDNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.altdns" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.altdns">
                         </div>
                     </fieldset>
                 </div>
 
                 <div class="col-md-4">
-                    <fieldset class="sbifieldset col-md-12" >
+                    <fieldset class="sbifieldset col-md-12">
                         <legend>ATM IP</legend>
                         <div class="form-group">
                             <label>IP Address:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns">
 
                             <label>Subnet:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port">
 
                             <label>Gateway IP:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns" >
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns">
                         </div>
                     </fieldset>
 
                     <label>TMK Checksum:</label>
-                    <input class="form-control" type="text" [(ngModel)]="atmSel.tmkchecksum" >
+                    <input class="form-control" type="text" [(ngModel)]="atmSel.tmkchecksum">
                 </div>
             </div>
         </fieldset>
@@ -182,8 +182,8 @@
                 
     <div class="sbirow">
         <div>
-            <button type="button" class="btn btn-info">Previous</button>
-            <button type="button" class="btn btn-info"  style="float:right">Next</button>
+            <button type="button" class="btn btn-info" (click)="prevPage()">Previous</button>
+            <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()" [disabled]="branch == null">Next</button>
         </div>
     </div>
 </div>

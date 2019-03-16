@@ -32,4 +32,8 @@ export class MvsServiceService {
     return this.httpClient.get(mvsUrl + "/branch/branchObj/" + branchId, options);
   }
 
+  public fetchFieldEntries(fieldName: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/atm/field/" + fieldName, options);
+  }
 }
