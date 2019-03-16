@@ -14,12 +14,22 @@ export class MvsServiceService {
 
   public fetchCashBranches(): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/api/cashbranchList", options);
+    return this.httpClient.get(mvsUrl + "/branch/cashlink", options);
   }
 
+  public fetchOwnerBranches(): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/branch/owner", options);
+  }
+    
   public fetchAtmList(branchType:string, branchId: number): Observable<any>
   {
     return this.httpClient.get(mvsUrl + "/api/atmList/" + branchType + "/" + branchId, options);
+  }
+
+  public fetchBranch(branchId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/branch/branchObj/" + branchId, options);
   }
 
 }
