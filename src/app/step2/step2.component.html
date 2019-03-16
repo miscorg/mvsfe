@@ -2,38 +2,114 @@
 <div class="container">
 
     <div class="row sbirow">
-        <div class="col-md-2 form-group">
-            <label>Select One:</label>
+        <div class="col-md-3 form-group">
+            <label>Branch Type:</label>
         </div>
-        <div class="col-md-1">
+        <div class="col-md-4">
+            <label>Cash Link Branch</label>
+            <input type="radio" [(ngModel)]="brtype" value="owner" />
+        </div>
+        <div class="col-md-4">
+            <label>Owner Branch</label>
             <input type="radio" [(ngModel)]="brtype" value="cashLink"/>
         </div>
-        <div class="col-md-2">
+    </div>
+
+    <div class="row sbirow">
+        <div class="col-md-6">
+            <label>Select Cash Link Branch:</label>                
             <select [(ngModel)]="cashbranchin" (change)="updateATMs()">
+                <option>-- Select One --</option>
                 <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
             </select>
         </div>
-        <div class="col-md-1">
-            <input type="radio" [(ngModel)]="brtype" value="owner" />
-        </div>
-        <div class="col-md-2">
+
+        <div class="col-md-6">
+            <label>Select Owner Branch:</label>                
             <select [(ngModel)]="ownerbranchin" (change)="updateATMs()">
+                <option>-- Select One --</option>
                 <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
             </select>
         </div>
-
-        <div class="col-md-2" *ngIf="atmList">
-            <select [(ngModel)]="atmSel">
-                <option *ngFor="let branchin of atmList" [ngValue]="branchin">{{branchin.atmId}}</option>
-            </select>
-        </div>
-            
-
     </div>
 
+    <div class="col-md-4" *ngIf="atmList">
+        <label>Select ATM:</label>                
+        <select [(ngModel)]="atmSel">
+            <option>-- Select One --</option>
+            <option *ngFor="let branchin of atmList" [ngValue]="branchin">{{branchin.atmId}}</option>
+        </select>
+    </div>
 
-    
+    <div class="row sbirow">
+        <div class="col-md-6">
+            <label>Select Cash Link Branch:</label>                
+            <select [(ngModel)]="cashbranchin" (change)="updateATMs()">
+                <option>-- Select One --</option>
+                <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+            </select>
+        </div>
 
+        <div class="col-md-6">
+            <label>Select Owner Branch:</label>                
+            <select [(ngModel)]="ownerbranchin" (change)="updateATMs()">
+                <option>-- Select One --</option>
+                <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+            </select>
+        </div>
+    </div>
+        
+    <div class="row col-md-12" >
+            
+        <div class="col-md-5">
+            <label>ATM Type</label>
+            <input type="text" th:field="*{atmType}">
+        </div>
+
+        <div id="row2Sel3" class="col-md-3">
+            <label>Site Type</label>
+            <select th:field="*{siteType}">
+                <option th:each="site : ${siteList}" th:value="${site}" th:text="${site}"></option>
+            </select>
+        </div>
+        <div id="row2Sel4" class="col-md-4">
+            <label>Ownership Type</label>
+            <select th:field="*{ownershipType}">
+                <option th:each="ownership : ${ownershipTypeList}" th:value="${ownership}" th:text="${ownership}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-md-5">
+            <label>N/W Type</label>
+            <select th:field="*{networkType}">
+                <option th:each="nwType : ${nwTypeList}" th:value="${nwType}" th:text="${nwType}"></option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Oem</label>
+            <select th:field="*{oem}" th:value="${atmIn.oem}">
+                <option th:each="oemIn : ${oemList}" th:value="${oemIn}" th:text="${oemIn}"></option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row col-md-12">
+        <div class="col-md-5">
+            <label>Model</label>
+            <select th:field="*{model}" >
+                <option th:each="modeln : ${modelList}" th:value="${modeln}" th:text="${modeln}"></option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label>Phase</label>
+            <select th:field="*{msVendor}" >
+                <option th:each="msVendor : ${msVendorList}" th:value="${msVendor}" th:text="${msVendor}"></option>
+            </select>
+        </div>
+    </div>
+            
         <div>
             <a href="#" class="previous" onclick="javascript:goback()" style="float:left">Previous &raquo;</a>
             <a href="#" class="next" onclick="javascript:submit()" style="float:right">Next &raquo;</a>
