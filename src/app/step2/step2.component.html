@@ -1,0 +1,42 @@
+
+<div class="container">
+
+    <div class="row sbirow">
+        <div class="col-md-2 form-group">
+            <label>Select One:</label>
+        </div>
+        <div class="col-md-1">
+            <input type="radio" [(ngModel)]="brtype" value="cashLink"/>
+        </div>
+        <div class="col-md-2">
+            <select [(ngModel)]="cashbranchin" (change)="updateATMs()">
+                <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+            </select>
+        </div>
+        <div class="col-md-1">
+            <input type="radio" [(ngModel)]="brtype" value="owner" />
+        </div>
+        <div class="col-md-2">
+            <select [(ngModel)]="ownerbranchin" (change)="updateATMs()">
+                <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+            </select>
+        </div>
+
+        <div class="col-md-2" *ngIf="atmList">
+            <select [(ngModel)]="atmSel">
+                <option *ngFor="let branchin of atmList" [ngValue]="branchin">{{branchin.atmId}}</option>
+            </select>
+        </div>
+            
+
+    </div>
+
+
+    
+
+        <div>
+            <a href="#" class="previous" onclick="javascript:goback()" style="float:left">Previous &raquo;</a>
+            <a href="#" class="next" onclick="javascript:submit()" style="float:right">Next &raquo;</a>
+        </div>
+
+</div>
