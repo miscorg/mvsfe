@@ -17,6 +17,7 @@ export class Step2Component implements OnInit {
 
   atmSel: ATM = null;
   cashbranchin: Branch = null;
+  ownerbranchin: Branch = null;
   brtype: string = "cashLink";
 
   constructor(private mvsService: MvsServiceService) { }
