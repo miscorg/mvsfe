@@ -23,26 +23,26 @@
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchManager.pfId">
+          <input class="form-control" type="text" [(ngModel)]="branchManager.pfId" disabled>
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Name:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchManager.name" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.name" disabled>
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Phone:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchManager.mobileNumber" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.mobileNumber" disabled>
       </div>
   </div>
 
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdOfficial" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdOfficial" disabled>
       </div>
       <div class="col-md-6 form-group">
           <label class="col-md-6">Designated Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdDesignated" >
+          <input class="form-control" type="text" [(ngModel)]="branchManager.emailIdDesignated" disabled>
       </div>
   </div>
 
@@ -54,22 +54,22 @@
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="atmOfficer.pfId">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.pfId" disabled>
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Name:</label>
-          <input class="form-control" type="text" [(ngModel)]="atmOfficer.name">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.name" disabled>
       </div>
       <div class="col-md-4 form-group">
           <label class="col-md-6">Phone:</label>
-          <input class="form-control" type="text" [(ngModel)]="atmOfficer.mobileNumber">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.mobileNumber" disabled>
       </div>
   </div>
 
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">Email ID:</label>
-          <input class="form-control" type="text" [(ngModel)]="atmOfficer.emailIdOfficial">
+          <input class="form-control" type="text" [(ngModel)]="atmOfficer.emailIdOfficial" disabled>
       </div>
   </div>
 
@@ -77,7 +77,7 @@
     <div class="col-md-4 form-group">
       <label class="sbilabel">Select ATMs at Site</label>
       <select name="cnt" class="sbiselect form-control">
-          <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"></option>
+            <option *ngFor="let n of [1,2,4]" [ngValue]="n">{{n}}</option>
       </select>
     </div>
     <div class="col-md-4">
@@ -125,5 +125,7 @@
           <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()">Next</button>
       </div>
   </div>
+
+  <br>  
 </div>
     

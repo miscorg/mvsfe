@@ -21,6 +21,7 @@ export class Step2Component implements OnInit {
 
   atmSel: ATM = new ATM();
   atmSeln: ATM = new ATM();
+  atmDummy: ATM = new ATM();
   atmNetwork: ATMNetwork = new ATMNetwork();
   atmAuxInfo: ATMAuxInfo = new ATMAuxInfo();
 
@@ -35,6 +36,8 @@ export class Step2Component implements OnInit {
   msVendorList: string[] = [];
   cashRepList: string[] = [];
   phaseList: string[] = [];
+
+  nullObj = null;
 
   constructor(private mvsService: MvsServiceService,
               private _router: Router) { }
@@ -130,6 +133,18 @@ export class Step2Component implements OnInit {
     this.mvsService.fetchFieldEntries("phases").subscribe(en => {
       this.phaseList = en;
     });
+  }
+    
+  prevPage()
+  {
+    this._router.navigate(["angstep1"]);
+  }
+
+  savePage(): boolean
+  {
+    console.log(this.atmSel);
+    sessionStorage.setItem("atmSel", JSON.stringify(this.atmSel));
+    return true;
   }
 
   nextPage()

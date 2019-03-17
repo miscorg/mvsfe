@@ -10,6 +10,7 @@ const routes: Routes = [
   {path: '', component: DashboardComponent},
   {path: 'angstep1', component: Step1Component},
   {path: 'angstep2', component: Step2Component},
+  {path: 'angstep2/fromnext', component: Step2Component},
   {path: 'angstep3/:branchId', component: Step3Component},
   {path: 'angstep4', component: Step4Component}
 ];

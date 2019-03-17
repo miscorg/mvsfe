@@ -67,8 +67,23 @@ export class Step3Component implements OnInit {
     )
   )
 
-  formatter = (x: {name: string}) => x.name;
-  
+  formatter = x => '';
+    
+  prevPage()
+  {
+    this._router.navigate(["angstep2/fromnext"]);
+  }
+
+  savePage(): boolean
+  {
+    console.log(this.atmSel);
+    sessionStorage.setItem("branchManager", JSON.stringify(this.branchManager));
+    sessionStorage.setItem("atmOfficer", JSON.stringify(this.atmOfficer));
+    sessionStorage.setItem("branchObj", JSON.stringify(this.branchObj));
+    sessionStorage.setItem("atmSel", JSON.stringify(this.atmObj));
+    return true;
+  }
+
   nextPage()
   {    
     console.log(this.careTaker);

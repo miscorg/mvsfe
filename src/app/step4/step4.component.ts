@@ -1,14 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ATMNetwork } from 'src/app/model/atmnw';
 import { ATMAuxInfo } from 'src/app/model/atmaux';
 import { Pfhrms } from 'src/app/model/pfhrms';
 import { ATM } from 'src/app/model/atm';
 import { Branch } from 'src/app/model/branch';
+import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+
+const spinOptions: NgbModalOptions = { backdropClass: 'light-blue-backdrop',
+                      backdrop: 'static',
+                      centered: true,
+                      keyboard: false,
+                      windowClass: 'clearmodalbody' };
 
 @Component({
   selector: 'app-step4',
   templateUrl: './step4.component.html',
-  styleUrls: ['./step4.component.scss']
+  styleUrls: ['./step4.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class Step4Component implements OnInit {
 
@@ -19,7 +27,10 @@ export class Step4Component implements OnInit {
   branchManager: Pfhrms = new Pfhrms();
   atmOfficer: Pfhrms = new Pfhrms();
 
-  constructor() { }
+  modalRef:NgbModalRef = null;
+  spinRef:NgbModalRef = null;
+
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
 
@@ -41,4 +52,14 @@ export class Step4Component implements OnInit {
     console.log(this.atmOfficer);
   }
 
+  submitAlert(content) 
+  {
+    this.modalRef = this.modalService.open(content, {centered: true});
+  }
+
+  submit(content)
+  {
+    this.modalRef.close('Submit');
+    this.spinRef = this.modalService.open(content, spinOptions);    
+  }
 }

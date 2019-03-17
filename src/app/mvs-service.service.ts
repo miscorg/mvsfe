@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 let options = { headers: new HttpHeaders().set('Content-Type', 'application/json').append('Access-Control-Allow-Origin', '*') }
-const mvsUrl = 'http://localhost:9090';
+// const mvsUrl = 'http://localhost:9090';
+const mvsUrl = environment.serviceUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +45,7 @@ export class MvsServiceService {
   }
   public fetchDashboardlist(): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "" , options);
+    return this.httpClient.get(mvsUrl + "/api/dashboard" , options);
   }
   public searchMgr(mrTxt: string): Observable<any>
   {
