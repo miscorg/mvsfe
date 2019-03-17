@@ -17,9 +17,16 @@ export class Step3Component implements OnInit {
 
   branchManager: Pfhrms = new Pfhrms();
   atmOfficer: Pfhrms = new Pfhrms();
+
+  careTaker: boolean;
+  braille: boolean;
+  surveillence: boolean;
+  corner: boolean;
+  cashOutSrc: boolean;
   
   constructor(private mvsService: MvsServiceService,
-              private _route: ActivatedRoute) { }
+              private _route: ActivatedRoute,
+              private _router: Router) { }
 
   ngOnInit() {
 
@@ -35,6 +42,20 @@ export class Step3Component implements OnInit {
 
     this.atmObj = JSON.parse(sessionStorage.getItem("atmSel"));
     
+  }
+
+  nextPage()
+  {    
+    console.log(this.careTaker);
+    console.log(this.braille);
+    console.log(this.surveillence);
+    console.log(this.corner);
+    console.log(this.cashOutSrc);
+    
+    sessionStorage.setItem("branchManager", JSON.stringify(this.branchManager));
+    sessionStorage.setItem("atmOfficer", JSON.stringify(this.atmOfficer));
+    sessionStorage.setItem("branchObj", JSON.stringify(this.branchObj));
+    this._router.navigate(["angstep4"]);
   }
 
 }

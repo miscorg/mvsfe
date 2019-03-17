@@ -10,13 +10,17 @@ import { AppComponent } from './app.component';
 import { Step2Component } from './step2/step2.component';
 import { Step1Component } from './step1/step1.component';
 import { Step3Component } from './step3/step3.component';
+import { Step4Component } from './step4/step4.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Step2Component,
     Step1Component,
-    Step3Component
+    Step3Component,
+    Step4Component,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,15 @@
-
+<div class="container">
+    <app-header currTab="STEP1"></app-header>
+    
 <fieldset>
   <legend>Group:</legend>
   <p>Instructions are as follows:</p>
 </fieldset>
 
-<div>
-  <a routerLink="/angstep2"  class="next">Next &raquo;</a>
+<div class="sbirow">
+  <div>
+    <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()" >Next</button>
+  </div>
+</div>
+
 </div>
