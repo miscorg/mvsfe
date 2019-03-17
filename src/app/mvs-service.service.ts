@@ -36,4 +36,8 @@ export class MvsServiceService {
   {
     return this.httpClient.get(mvsUrl + "/atm/field/" + fieldName, options);
   }
+  public fetchDashboardlist(): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "" , options);
+  }
 }
