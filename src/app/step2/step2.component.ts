@@ -4,6 +4,8 @@ import { MvsServiceService } from 'src/app/mvs-service.service';
 import { ATM } from 'src/app/model/atm';
 import { Router } from '@angular/router';
 import { JsonPipe } from '@angular/common';
+import { ATMNetwork } from 'src/app/model/atmnw';
+import { ATMAuxInfo } from 'src/app/model/atmaux';
 
 @Component({
   selector: 'app-step2',
@@ -18,6 +20,10 @@ export class Step2Component implements OnInit {
   atmList : ATM[] = [];
 
   atmSel: ATM = new ATM();
+  atmSeln: ATM = new ATM();
+  atmNetwork: ATMNetwork = new ATMNetwork();
+  atmAuxInfo: ATMAuxInfo = new ATMAuxInfo();
+
   branch: Branch = null;
   brtype: string = "cashLink";
 
@@ -66,6 +72,28 @@ export class Step2Component implements OnInit {
       console.log(err);
     });
     
+  }
+
+  updateATMData()
+  {
+    console.log(this.atmSeln);
+
+    this.mvsService.fetchAtmData(this.atmSeln.atmId).subscribe(dt => {
+      console.log(dt);
+      this.atmSel = dt;
+
+      if(this.atmSel.atmNetwork) {
+        this.atmNetwork = this.atmSel.atmNetwork;
+      }
+
+      if(this.atmSel.atmAuxInfo) {
+        this.atmAuxInfo = this.atmSel.atmAuxInfo;
+      }
+    },
+    err => {
+      console.log(err);
+    });
+    // this.atmSel = this.atmSeln;
   }
 
   loadReferences()

@@ -24,7 +24,12 @@ export class MvsServiceService {
     
   public fetchAtmList(branchType:string, branchId: number): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/api/atmList/" + branchType + "/" + branchId, options);
+    return this.httpClient.get(mvsUrl + "/atm/atmList/" + branchType + "/" + branchId, options);
+  }
+    
+  public fetchAtmData(atmId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/atm/" + atmId, options);
   }
 
   public fetchBranch(branchId: string): Observable<any>
@@ -39,5 +44,9 @@ export class MvsServiceService {
   public fetchDashboardlist(): Observable<any>
   {
     return this.httpClient.get(mvsUrl + "" , options);
+  }
+  public searchMgr(mrTxt: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/user/userSearch/" + mrTxt, options);
   }
 }

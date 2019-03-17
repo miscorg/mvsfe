@@ -1,6 +1,8 @@
 import { BranchType} from './branchtype';
 import { BranchPeopleData } from 'src/app/model/branchpeopledata';
 import { Branch } from 'src/app/model/branch';
+import { ATMNetwork } from 'src/app/model/atmnw';
+import { ATMAuxInfo } from 'src/app/model/atmaux';
 
 export class ATM 
 {
@@ -25,6 +27,9 @@ export class ATM
   state: string;
   popGroup: string;
   landmark: string;
+
+  atmNetwork: ATMNetwork;
+  atmAuxInfo: ATMAuxInfo;
 
   ownerBranch: Branch;
   cashLinkBranch: Branch;

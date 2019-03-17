@@ -1,0 +1,146 @@
+<div class="container" >
+
+    <app-header currTab="STEP4"></app-header>
+
+  <label class="col-md-6" style="color:blue">Data Confirmation Page</label>  
+
+  <div class="row sbirow" >
+  <div class="col-md-5 form-group">
+    <fieldset class="sbifieldset">
+      <legend>ATM Details</legend>
+
+      <label class="col-md-6">ATM: </label>
+      <label class="col-md-6">{{atmObj.atmId}}</label>
+
+      <label class="col-md-6">Branch: </label>
+      <label class="col-md-6">{{branchObj.branchName}}</label>
+
+      <label class="col-md-6">ATM Type</label>
+      <label class="col-md-6">{{atmObj.atmType}}</label>
+
+      <label class="col-md-6">Site Type</label>
+      <label class="col-md-6">{{atmObj.siteType}}</label>
+
+      <label class="col-md-6">Ownership Type</label>
+      <label class="col-md-6">{{atmObj.ownershipType}}</label>
+
+      <label class="col-md-6">Network Type</label>
+      <label class="col-md-6">{{atmObj.networkType}}</label>
+
+      <label class="col-md-6">OEM Make</label>
+      <label class="col-md-6">{{atmObj.oem}}</label>
+
+      <label class="col-md-6">Model Type</label>
+      <label class="col-md-6">{{atmObj.model}}</label>
+
+      <label class="col-md-6">Vendor</label>
+      <label class="col-md-6">{{atmObj.msVendor}}</label>
+
+      <label class="col-md-6">Cash Replenishment</label>
+      <label class="col-md-6">{{atmObj.cashRepl}}</label>
+
+      <label class="col-md-6">Phase</label>
+      <label class="col-md-6">{{atmObj.phase}}</label>
+
+      <label class="col-md-6">PIN Code</label>
+      <label class="col-md-6">{{branchObj.branchPinCode}}</label>
+
+      <label class="col-md-6">Landmark</label>
+      <label class="col-md-6">{{atmObj.landmark}}</label>
+
+
+    </fieldset>
+  </div>
+  
+  <div class="col-md-4 form-group">
+    <fieldset class="sbifieldset">
+      <legend>Base24 Switch</legend>
+
+      <label class="col-md-6">DNS</label>
+      <label class="col-md-6">{{atmNetwork.hostDNS}}</label>
+
+      <label class="col-md-6">Port</label>
+      <label class="col-md-6">{{atmNetwork.hostDNS}}</label>
+
+      <label class="col-md-6">Pref DNS</label>
+      <label class="col-md-6">{{atmNetwork.hostPreDNS}}</label>
+
+      <label class="col-md-6">Alt DNS</label>
+      <label class="col-md-6">{{atmNetwork.hostAltDNS}}</label>
+
+      <label class="col-md-6">IP Address</label>
+      <label class="col-md-6">{{atmNetwork.ipAddress}}</label>
+
+      <label class="col-md-6">Subnet</label>
+      <label class="col-md-6">{{atmNetwork.subnet}}</label>
+
+      <label class="col-md-6">Gateway IP</label>
+      <label class="col-md-6">{{atmNetwork.defaultGateway}}</label>
+
+      <label class="col-md-6">TMK Checksum</label>
+      <label class="col-md-6">{{atmAuxInfo.tmkChecksum}}</label>
+
+      <label class="col-md-6">Caretaker</label>
+      <label class="col-md-6">{{atmAuxInfo.auxField1}}</label>
+
+      <label class="col-md-6">ADA/Braile</label>
+      <label class="col-md-6">{{atmAuxInfo.auxField2}}</label>
+
+      <label class="col-md-6">e-Surveillance</label>
+      <label class="col-md-6">{{atmAuxInfo.auxField3}}</label>
+
+      <label class="col-md-6">e-Corner</label>
+      <label class="col-md-6">{{atmAuxInfo.auxField4}}</label>
+
+      <label class="col-md-6">Cash Outsourced</label>
+      <label class="col-md-6">{{atmAuxInfo.auxField5}}</label>
+
+    </fieldset>
+  </div>
+
+  <div class="col-md-3">
+    <fieldset class="sbifieldset">
+      <legend>Branch Manager</legend>
+
+      <label class="col-md-6">PF Id</label>
+      <label class="col-md-6">{{branchManager.pfId}}</label>
+
+      <label class="col-md-6">Name</label>
+      <label class="col-md-6">{{branchManager.name}}</label>
+
+      <label class="col-md-6">Phone</label>
+      <label class="col-md-6">{{branchManager.mobileNumber}}</label>
+
+      <label class="col-md-6">Email Id</label>
+      <label class="col-md-6">{{branchManager.emailIdOfficial}}</label>
+
+    </fieldset>
+
+    <fieldset class="sbifieldset">
+      <legend>ATM Officer</legend>
+
+      <label class="col-md-6">PF Id</label>
+      <label class="col-md-6">{{atmOfficer.pfId}}</label>
+
+      <label class="col-md-6">Name</label>
+      <label class="col-md-6">{{atmOfficer.name}}</label>
+
+      <label class="col-md-6">Phone</label>
+      <label class="col-md-6">{{atmOfficer.mobileNumber}}</label>
+
+      <label class="col-md-6">Email Id</label>
+      <label class="col-md-6">{{atmOfficer.emailIdOfficial}}</label>
+
+    </fieldset>    
+  </div>
+</div>
+
+  <div class="sbirow">
+    <div>
+        <button type="button" class="btn btn-info">Previous</button>
+        <button type="button" class="btn btn-info" style="float:right" >Submit</button>
+    </div>
+  </div>
+  
+</div>
+  

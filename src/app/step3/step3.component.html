@@ -1,5 +1,5 @@
 <div class="container" >
-    
+    <app-header currTab="STEP3"></app-header>
   <div class="row sbirow">
       <div class="col-md-4 form-group">
           <label class="col-md-6">Branch</label>
@@ -11,7 +11,14 @@
       </div>
   </div>
 
-  <label class="col-md-6" style="color:blue">Branch Manager</label>
+  <div class="row sbirow" >      
+    <label class="col-md-2 searchLabel">Branch Manager: </label>
+    <input class="form-control col-md-6" type="text" [(ngModel)]="branchManager" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
+  </div>
+
+  <ng-template #rt let-r="result" let-t="term">
+    <ngb-highlight [result]="r.pfId + ' - ' + r.name" [term]="t"></ngb-highlight>
+  </ng-template>
 
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
@@ -39,8 +46,11 @@
       </div>
   </div>
 
-  <label class="col-md-6" style="color:blue">ATM Officer</label>
-
+  <div class="row sbirow" >      
+    <label class="col-md-2 searchLabel">ATM Officer: </label>
+    <input class="form-control col-md-6" type="text" [(ngModel)]="atmOfficer" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
+  </div>
+        
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
@@ -64,21 +74,55 @@
   </div>
 
   <div class="row sbirow">
-      <label>Select ATMs at Site</label>
-      <select name="cnt">
+    <div class="col-md-4 form-group">
+      <label class="sbilabel">Select ATMs at Site</label>
+      <select name="cnt" class="sbiselect form-control">
           <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"></option>
       </select>
+    </div>
+    <div class="col-md-4">
+        <label class="sbilabel">Target Date</label>
+        <!-- <div class="form-group"> -->
+        <div class="input-group">
+        <input class="form-control" [(ngModel)]="atmAuxInfo.targetDate" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>    
+        </div>
+        <!-- </div> -->
+    </div>
   </div>
 
+  <label class="col-md-6" style="color:blue">Auxiliary Info</label>  
   <div class="row sbirow">
-      <label>Target Date</label>
-      <input type="text" id="datepicker" name="tgtDate">
+    <div class="col-md-3">
+      <label class="sbilabel">Caretaker</label>      
+      <input type="checkbox" [(ngModel)]="careTaker">
+    </div>
+    <div class="col-md-3">
+    <label class="sbilabel">ADA/Braile</label>      
+    <input type="checkbox" [(ngModel)]="braille">
+    </div>
+    <div class="col-md-3">
+    <label class="sbilabel">e-Surveillance</label>      
+    <input type="checkbox" [(ngModel)]="surveillence">
+    </div>
+    <div class="col-md-3">
+    <label class="sbilabel">e-Corner</label>      
+    <input type="checkbox" [(ngModel)]="corner">
+    </div>
+    <div class="col-md-3">
+    <label class="sbilabel">Cash Outsourced</label>      
+    <input type="checkbox" [(ngModel)]="cashOutSrc">
+    </div>
+          
   </div>
+
 
   <div class="sbirow">
       <div>
           <button type="button" class="btn btn-info">Previous</button>
-          <button type="button" class="btn btn-info"  style="float:right">Next</button>
+          <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()">Next</button>
       </div>
   </div>
 </div>

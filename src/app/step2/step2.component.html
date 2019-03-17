@@ -1,6 +1,7 @@
 
 <div class="container">
 
+    <app-header currTab="STEP2"></app-header>
     <div class="row sbirow">
         <div class="col-md-3">
             <label>Branch Type:</label>
@@ -37,14 +38,14 @@
     <div class="row sbirow">
         <div class="col-md-5">
             <label class="sbilabel">Select ATM:</label>                
-            <select [(ngModel)]="atmSel" class="sbiselect form-control">
+            <select [(ngModel)]="atmSeln" class="sbiselect form-control" (change)=updateATMData()>
                 <option value="null" disabled >-- Select One --</option>
                 <option *ngFor="let branchin of atmList" [ngValue]="branchin">{{branchin.atmId}}</option>
             </select>
         </div>
         <div class="col-md-3">
                 <label class="sbilabel">ATM Type</label>
-                <input type="text" [(ngModel)]="atmType" class="sbitxt form-control">
+                <input type="text" [(ngModel)]="atmSel.atmType" class="sbitxt form-control">
             </div>    
     </div>
         
@@ -99,14 +100,14 @@
     <div class="row col-md-12">
         <div class="col-md-3">
             <label class="sbilabel">Cash Replenishment</label>
-            <select [(ngModel)]="atmSel.oem" class="sbiselect form-control">
+            <select [(ngModel)]="atmSel.cashRepl" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
                 <option *ngFor="let oemIn of cashRepList" [ngValue]="oemIn">{{oemIn}}</option>
             </select>
         </div>
         <div class="col-md-3">
             <label class="sbilabel">Phase</label>
-            <select [(ngModel)]="atmSel.model" class="sbiselect form-control">
+            <select [(ngModel)]="atmSel.phase" class="sbiselect form-control">
                 <option value="null" disabled >-- Select One --</option>            
                 <option *ngFor="let modeln of phaseList" [ngValue]="modeln">{{modeln}}</option>
             </select>
@@ -118,7 +119,7 @@
             <legend>ATM Info</legend>
             <div class="row">
                 <label class="col-md-2" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
-                <input class="col-md-2 form-control" type="text" [(ngModel)]="atmSel.pincode" placeholder="Enter Pincode">
+                <input *ngIf="branch" class="col-md-2 form-control" type="text" [(ngModel)]="branch.branchPinCode" placeholder="Enter Pincode">
             </div>
             <div class="row sbirow">
                 <div class="col-md-10">
@@ -144,16 +145,16 @@
                         <legend>BASE24 Switch</legend>
                         <div class="form-group">
                             <label>DNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostDNS">
 
                             <label>Port:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostDNS">
 
                             <label>PrefDNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostPreDNS">
 
                             <label>AltDNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.altdns">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostPreDNS">
                         </div>
                     </fieldset>
                 </div>
@@ -163,18 +164,18 @@
                         <legend>ATM IP</legend>
                         <div class="form-group">
                             <label>IP Address:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.dns">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.ipAddress">
 
                             <label>Subnet:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.port">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.subnet">
 
                             <label>Gateway IP:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.prefdns">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.defaultGateway">
                         </div>
                     </fieldset>
 
                     <label>TMK Checksum:</label>
-                    <input class="form-control" type="text" [(ngModel)]="atmSel.tmkchecksum">
+                    <input class="form-control" type="text" [(ngModel)]="atmAuxInfo.tmkChecksum">
                 </div>
             </div>
         </fieldset>
@@ -182,7 +183,7 @@
                 
     <div class="sbirow">
         <div>
-            <button type="button" class="btn btn-info" (click)="prevPage()">Previous</button>
+            <button type="button" class="btn btn-info">Previous</button>
             <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()" [disabled]="branch == null">Next</button>
         </div>
     </div>
