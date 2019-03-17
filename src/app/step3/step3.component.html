@@ -11,7 +11,14 @@
       </div>
   </div>
 
-  <label class="col-md-6" style="color:blue">Branch Manager</label>
+  <div class="row sbirow" >      
+    <label class="col-md-2 searchLabel">Branch Manager: </label>
+    <input class="form-control col-md-6" type="text" [(ngModel)]="branchManager" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
+  </div>
+
+  <ng-template #rt let-r="result" let-t="term">
+    <ngb-highlight [result]="r.pfId + ' - ' + r.name" [term]="t"></ngb-highlight>
+  </ng-template>
 
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
@@ -39,8 +46,11 @@
       </div>
   </div>
 
-  <label class="col-md-6" style="color:blue">ATM Officer</label>
-
+  <div class="row sbirow" >      
+    <label class="col-md-2 searchLabel">ATM Officer: </label>
+    <input class="form-control col-md-6" type="text" [(ngModel)]="atmOfficer" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
+  </div>
+        
   <div class="row sbirow" >
       <div class="col-md-4 form-group">
           <label class="col-md-6">PF ID:</label>
@@ -70,12 +80,17 @@
           <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"></option>
       </select>
     </div>
-    <div class="col-md-4 form-group">
+    <div class="col-md-4">
         <label class="sbilabel">Target Date</label>
-        <select name="tgtDate" class="sbiselect form-control">
-            <option th:each="n : ${#numbers.sequence(1,53)}" th:value="${n}" th:text="${n}"></option>
-        </select>
-      </div>
+        <!-- <div class="form-group"> -->
+        <div class="input-group">
+        <input class="form-control" [(ngModel)]="atmAuxInfo.targetDate" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>    
+        </div>
+        <!-- </div> -->
+    </div>
   </div>
 
   <label class="col-md-6" style="color:blue">Auxiliary Info</label>  

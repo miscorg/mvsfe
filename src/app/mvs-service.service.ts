@@ -41,4 +41,9 @@ export class MvsServiceService {
   {
     return this.httpClient.get(mvsUrl + "/atm/field/" + fieldName, options);
   }
+
+  public searchMgr(mrTxt: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/user/userSearch/" + mrTxt, options);
+  }
 }
