@@ -5,6 +5,8 @@ import { Pfhrms } from 'src/app/model/pfhrms';
 import { ATM } from 'src/app/model/atm';
 import { Branch } from 'src/app/model/branch';
 import { NgbModal, NgbModalOptions, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
+import { MvsServiceService } from 'src/app/mvs-service.service';
 
 const spinOptions: NgbModalOptions = { backdropClass: 'light-blue-backdrop',
                       backdrop: 'static',
@@ -30,7 +32,9 @@ export class Step4Component implements OnInit {
   modalRef:NgbModalRef = null;
   spinRef:NgbModalRef = null;
 
-  constructor(private modalService: NgbModal) { }
+  constructor(private mvsService: MvsServiceService,
+              private modalService: NgbModal,
+              private _router: Router) { }
 
   ngOnInit() {
 
@@ -45,8 +49,10 @@ export class Step4Component implements OnInit {
     }
 
     this.branchObj = JSON.parse(sessionStorage.getItem("branchObj"));
-    this.branchManager = JSON.parse(sessionStorage.getItem("branchManager"));
-    this.atmOfficer = JSON.parse(sessionStorage.getItem("atmOfficer"));
+    this.branchManager = this.branchObj.branchPeopleData.branchManager;
+    this.atmOfficer = this.branchObj.branchPeopleData.atmOfficer;
+    // this.branchManager = JSON.parse(sessionStorage.getItem("branchManager"));
+    // this.atmOfficer = JSON.parse(sessionStorage.getItem("atmOfficer"));
 
     console.log(this.branchManager);
     console.log(this.atmOfficer);
@@ -57,9 +63,28 @@ export class Step4Component implements OnInit {
     this.modalRef = this.modalService.open(content, {centered: true});
   }
 
+  prevPage()
+  {
+    this._router.navigate(["angstep3"]);
+  }
+
   submit(content)
   {
     this.modalRef.close('Submit');
-    this.spinRef = this.modalService.open(content, spinOptions);    
+    this.spinRef = this.modalService.open(content, spinOptions);
+
+    if(this.atmObj.cashLinkBranch != null && this.atmObj.cashLinkBranch.branchId == this.branchObj.branchId)
+    {
+      this.atmObj.cashLinkBranch = this.branchObj;
+    }
+    this.mvsService.saveAtm(this.atmObj).subscribe(out => {
+      console.log(out);
+      this.spinRef.close();
+      this._router.navigate(["angstep1"]);
+    },
+    err => {
+      this.spinRef.close();
+      console.log(err);
+    });
   }
 }

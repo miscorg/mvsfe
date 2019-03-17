@@ -17,4 +17,18 @@ export class Branch {
   branchType: BranchType;
   branchPeopleData: BranchPeopleData;
 
+  static fromJson(jsonStr)
+  {
+    return Object.assign(new Branch(), jsonStr);
+  }
+
+  static fromJsonArray(jsonStrArr: any[])
+  {
+    let branches: Branch[] = [];
+    jsonStrArr.map(el => {
+      branches.push(Branch.fromJson(el))
+    });
+    return branches;
+  }
+  
 }

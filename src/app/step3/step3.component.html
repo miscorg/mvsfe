@@ -95,25 +95,25 @@
 
   <label class="col-md-6" style="color:blue">Auxiliary Info</label>  
   <div class="row sbirow">
-    <div class="col-md-3">
+    <div class="col-md-2">
       <label class="sbilabel">Caretaker</label>      
-      <input type="checkbox" [(ngModel)]="careTaker">
+      <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField1">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <label class="sbilabel">ADA/Braile</label>      
-    <input type="checkbox" [(ngModel)]="braille">
+    <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField2">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <label class="sbilabel">e-Surveillance</label>      
-    <input type="checkbox" [(ngModel)]="surveillence">
+    <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField3">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <label class="sbilabel">e-Corner</label>      
-    <input type="checkbox" [(ngModel)]="corner">
+    <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField4">
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
     <label class="sbilabel">Cash Outsourced</label>      
-    <input type="checkbox" [(ngModel)]="cashOutSrc">
+    <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField5">
     </div>
           
   </div>
@@ -121,7 +121,7 @@
 
   <div class="sbirow">
       <div>
-          <button type="button" class="btn btn-info">Previous</button>
+          <button type="button" class="btn btn-info" (click)="prevPage()">Previous</button>
           <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()">Next</button>
       </div>
   </div>

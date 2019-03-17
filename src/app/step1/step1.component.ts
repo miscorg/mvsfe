@@ -15,6 +15,7 @@ export class Step1Component implements OnInit {
 
   nextPage()
   {
+    sessionStorage.clear();
     this._router.navigate(["angstep2"]);
   }
 }

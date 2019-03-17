@@ -22,7 +22,7 @@
             <label class="sbilabel">Select Cash Link Branch:</label>                
             <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='cashLink'">
                 <option  value="undefined" disabled>-- Select One --</option>
-                <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+                <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
             </select>
         </div>
 
@@ -30,7 +30,7 @@
             <label class="sbilabel">Select Owner Branch:</label>                
             <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='owner'">
                 <option  value="undefined" disabled >-- Select One --</option>
-                <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + '-' + branchin.branchName}}</option>
+                <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
             </select>
         </div>
     </div>
@@ -157,7 +157,7 @@
                             <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostPreDNS">
 
                             <label>AltDNS:</label>
-                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostPreDNS">
+                            <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.hostAltDNS">
                         </div>
                     </fieldset>
                 </div>
