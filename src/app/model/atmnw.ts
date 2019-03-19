@@ -11,5 +11,5 @@ export class ATMNetwork
   hostDNS: string;
   hostPreDNS: string;
   hostAltDNS: string;
-  atmSite: string;
+  port: String;
 }

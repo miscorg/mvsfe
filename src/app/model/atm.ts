@@ -33,5 +33,7 @@ export class ATM
 
   ownerBranch: Branch;
   cashLinkBranch: Branch;
+  os: String;
+  supplier: String;
 
 }

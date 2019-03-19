@@ -57,6 +57,7 @@ export class MvsServiceService {
 
   public saveAtm(atmIn: ATM): Observable<any>
   {
-    return this.httpClient.post(mvsUrl + "/atm/save", atmIn, options);
+    console.log(atmIn);
+    return this.httpClient.put(mvsUrl + "/atm/"+atmIn.atmId , atmIn, options);
   }
 }

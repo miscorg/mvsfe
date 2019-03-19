@@ -71,13 +71,19 @@
           <label class="col-md-6">Email ID:</label>
           <input class="form-control" type="text" [(ngModel)]="atmOfficer.emailIdOfficial" disabled>
       </div>
+
+      <div class="col-md-6 form-group">
+            <label class="col-md-6">Designated Email ID:</label>
+            <input class="form-control" type="text" [(ngModel)]="atmOfficer.emailIdDesignated" disabled>
+        </div>
   </div>
+  
 
   <div class="row sbirow">
     <div class="col-md-4 form-group">
       <label class="sbilabel">Select ATMs at Site</label>
-      <select name="cnt" class="sbiselect form-control">
-            <option *ngFor="let n of [1,2,4]" [ngValue]="n">{{n}}</option>
+      <select [(ngModel)]="atmObj.atmSite" class="sbiselect form-control">
+            <option *ngFor="let n of [1,2,3,4,5,6,7,8,9,10]" [ngValue]="n">{{n}}</option>
       </select>
     </div>
     <div class="col-md-4">
@@ -110,10 +116,6 @@
     <div class="col-md-2">
     <label class="sbilabel">e-Corner</label>      
     <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField4">
-    </div>
-    <div class="col-md-2">
-    <label class="sbilabel">Cash Outsourced</label>      
-    <input type="checkbox" [(ngModel)]="atmAuxInfo.auxField5">
     </div>
           
   </div>
