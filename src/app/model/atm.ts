@@ -27,6 +27,7 @@ export class ATM
   state: string;
   popGroup: string;
   landmark: string;
+  atmSite: string;
 
   atmNetwork: ATMNetwork;
   atmAuxInfo: ATMAuxInfo;

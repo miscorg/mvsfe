@@ -36,6 +36,7 @@ export class Step2Component implements OnInit {
   msVendorList: string[] = [];
   cashRepList: string[] = [];
   phaseList: string[] = [];
+  osList: string[] = [];
 
   backmove: boolean = false;
 
@@ -191,6 +192,10 @@ export class Step2Component implements OnInit {
 
     this.mvsService.fetchFieldEntries("phases").subscribe(en => {
       this.phaseList = en;
+    });
+
+    this.mvsService.fetchFieldEntries("os").subscribe(en => {
+      this.osList = en;
     });
   }
     
