@@ -6,6 +6,20 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { JsonPipe } from '@angular/common';
 import { ATMNetwork } from 'src/app/model/atmnw';
 import { ATMAuxInfo } from 'src/app/model/atmaux';
+import { FieldValues } from 'src/app/model/field-values';
+
+const OWNER_KEY = 'ownershipType';
+const PHASES_KEY = 'phases';
+const OEM_MAKE_KEY = 'oemMake';
+const NW_TYP_KEY = 'networkType';
+const MODEL_KEY = 'model';
+const ATM_TYPE_KEY = "atmType"
+const MS_VENDOR_KEY = 'msVender';
+const SUPPLIER_KEY = 'supplier';
+const CASH_REP_KEY = 'cashRepType';
+const CRA_AGENCY_KEY = 'craAgencyKey';
+const OS_KEY = 'os';
+const SITE_KEY = 'site';
 
 @Component({
   selector: 'app-step2',
@@ -28,16 +42,19 @@ export class Step2Component implements OnInit {
   branch: Branch = null;
   brtype: string = "cashLink";
 
-  siteList: string[] = [];
+  fieldVals: FieldValues[] = [];  
   ownershipTypeList: string[] = [];
-  nwTypeList: string[] = [];
+  phaseList: string[] = [];
   oemList: string[] = [];
   modelList: string[] = [];
-  msVendorList: string[] = [];
-  cashRepList: string[] = [];
-  phaseList: string[] = [];
   osList: string[] = [];
-
+  msVendorList: string[] = [];
+  supplierList: string[] = [];
+  cashRepList: string[] = [];
+  craAgencyList: string[] = [];
+  nwTypeList: string[] = [];
+  siteList: string[] = [];
+  
   backmove: boolean = false;
 
   constructor(private mvsService: MvsServiceService,
@@ -46,6 +63,7 @@ export class Step2Component implements OnInit {
 
   ngOnInit() 
   {
+    
     this.backmove = this._route.snapshot.paramMap.has("direction");
     
     this.mvsService.fetchCashBranches().subscribe(brIn => {
@@ -60,6 +78,10 @@ export class Step2Component implements OnInit {
           this.branch = Object.assign(branchObjFromList, branchObj);
           this.loadAtm();
         }
+      }
+      else
+      {
+        sessionStorage.clear();
       }
     },
     err => {
@@ -82,7 +104,7 @@ export class Step2Component implements OnInit {
       console.log(err);
     });
     
-    this.loadReferences();
+    this.loadFieldValues();
   }
 
   loadAtm()
@@ -94,7 +116,7 @@ export class Step2Component implements OnInit {
       let atmFromList = this.atmList.find(el => {return el.atmId == atmSelObj.atmId})
       if(atmFromList)
       {
-        this.atmSel = Object.assign(atmFromList, atmSelObj);              
+        this.atmSel = ATM.copyJson(atmSelObj, atmFromList);              
         this.atmSeln = this.atmSel;
         console.log(this.atmSel);
 
@@ -157,6 +179,68 @@ export class Step2Component implements OnInit {
       console.log(err);
     });
     // this.atmSel = this.atmSeln;
+  }
+
+  loadFieldValues()
+  {
+    this.mvsService.fetchFieldValues().subscribe(lst => {
+      this.fieldVals = lst;
+
+      this.fieldVals.forEach(el => {
+        if(el.key == "site")
+        {
+          this.siteList.push(el.value);
+        }
+        else if(el.key == "ownershipType")
+        {
+          this.ownershipTypeList.push(el.value);
+        }
+      })
+    });
+  }
+
+  fetchChildStrs(keyIn: string, valueIn: string, fieldValsIn: FieldValues[], childKey: string)
+  {
+    let fieldVal: FieldValues = fieldValsIn.find(el => {return el.key == keyIn && el.value == valueIn});
+    if(fieldVal == null)
+    {
+      return [];
+    }
+    return fieldValsIn.filter(el => {return el.key == childKey && el.parentId == fieldVal.id}).map(el => el.value);    
+  }
+
+  ownershipUpdtd()
+  {
+    this.phaseList = this.fetchChildStrs(OWNER_KEY, this.atmSel.ownershipType, this.fieldVals, PHASES_KEY);
+    this.nwTypeList = this.fetchChildStrs(OWNER_KEY, this.atmSel.ownershipType, this.fieldVals, NW_TYP_KEY);
+    this.msVendorList = this.fetchChildStrs(OWNER_KEY, this.atmSel.ownershipType, this.fieldVals, MS_VENDOR_KEY);
+    this.cashRepList = this.fetchChildStrs(OWNER_KEY, this.atmSel.ownershipType, this.fieldVals, CASH_REP_KEY);
+    this.phaseUpdtd();
+    this.cashRepUpdtd();
+  }
+
+  phaseUpdtd()
+  {
+    this.oemList = this.fetchChildStrs(PHASES_KEY, this.atmSel.phase, this.fieldVals, OEM_MAKE_KEY);
+    this.makeUpdtd();
+  }
+
+  makeUpdtd()
+  {
+    this.modelList = this.fetchChildStrs(OEM_MAKE_KEY, this.atmSel.oem, this.fieldVals, MODEL_KEY);
+    this.modelUpdtd();
+  }
+
+  modelUpdtd()
+  {    
+    this.osList = this.fetchChildStrs(MODEL_KEY, this.atmSel.model, this.fieldVals, OS_KEY);
+    this.supplierList = this.fetchChildStrs(MODEL_KEY, this.atmSel.model, this.fieldVals, SUPPLIER_KEY);
+    this.atmSel.atmType = this.fetchChildStrs(MODEL_KEY, this.atmSel.model, this.fieldVals, ATM_TYPE_KEY)[0];    
+  }
+
+  cashRepUpdtd()
+  {
+    this.craAgencyList = this.fetchChildStrs(CASH_REP_KEY, this.atmSel.model, this.fieldVals, CRA_AGENCY_KEY);
   }
 
   loadReferences()

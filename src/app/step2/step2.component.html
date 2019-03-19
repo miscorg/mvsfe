@@ -49,19 +49,43 @@
         </div>    
     </div>
         
-    <div class="row sbirow col-md-12">            
-        <div id="row2Sel3" class="col-md-3">
-            <label class="sbilabel">Site Type</label>
-            <select [(ngModel)]="atmSel.siteType" class="sbiselect form-control">
-                <option value="undefined" disabled >-- Select One --</option>
-                <option *ngFor="let site of siteList" [ngValue]="site">{{site}}</option>
-            </select>
-        </div>        
+    <div class="row sbirow col-md-12">
         <div id="row2Sel3" class="col-md-3">
             <label class="sbilabel">Ownership Type</label>
-            <select [(ngModel)]="atmSel.ownershipType" class="sbiselect form-control">
+            <select [(ngModel)]="atmSel.ownershipType" class="sbiselect form-control" (change)="ownershipUpdtd()">
                 <option value="undefined" disabled >-- Select One --</option>            
                 <option *ngFor="let ownership of ownershipTypeList" [ngValue]="ownership">{{ownership}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="sbilabel">Phase</label>
+            <select [(ngModel)]="atmSel.phase" class="sbiselect form-control" (change)="phaseUpdtd()">
+                <option  value="undefined" disabled >-- Select One --</option>            
+                <option *ngFor="let modeln of phaseList" [ngValue]="modeln">{{modeln}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="sbilabel">Oem</label>
+            <select [(ngModel)]="atmSel.oem" class="sbiselect form-control"  (change)="makeUpdtd()">
+                <option value="undefined" disabled >-- Select One --</option>            
+                <option *ngFor="let oemIn of oemList" [ngValue]="oemIn">{{oemIn}}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="sbilabel">Model</label>
+            <select [(ngModel)]="atmSel.model" class="sbiselect form-control"  (change)="modelUpdtd()">
+                <option value="undefined" disabled >-- Select One --</option>            
+                <option *ngFor="let modeln of modelList" [ngValue]="modeln">{{modeln}}</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="row col-md-12">        
+        <div class="col-md-3">
+            <label class="sbilabel">OS Information</label>
+            <select [(ngModel)]="atmSel.os" class="sbiselect form-control"> 
+                <option value="undefined" disabled >-- Select One --</option>            
+                <option *ngFor="let os of osList" [ngValue]="os">{{os}}</option>
             </select>
         </div>
         <div class="col-md-3" *ngIf="atmSel.ownershipType && atmSel.ownershipType.indexOf('Opex') < 0">
@@ -85,33 +109,9 @@
                 <option *ngFor="let msVendor of msVendorList" [ngValue]="msVendor">{{msVendor}}</option>
             </select>
         </div>        
-    </div>
-    
-    <div class="row col-md-12">        
-        <div class="col-md-3">
-            <label class="sbilabel">Phase</label>
-            <select [(ngModel)]="atmSel.phase" class="sbiselect form-control">
-                <option  value="undefined" disabled >-- Select One --</option>            
-                <option *ngFor="let modeln of phaseList" [ngValue]="modeln">{{modeln}}</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label class="sbilabel">Oem</label>
-            <select [(ngModel)]="atmSel.oem" class="sbiselect form-control">
-                <option value="undefined" disabled >-- Select One --</option>            
-                <option *ngFor="let oemIn of oemList" [ngValue]="oemIn">{{oemIn}}</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label class="sbilabel">Model</label>
-            <select [(ngModel)]="atmSel.model" class="sbiselect form-control">
-                <option value="undefined" disabled >-- Select One --</option>            
-                <option *ngFor="let modeln of modelList" [ngValue]="modeln">{{modeln}}</option>
-            </select>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="atmSel.ownershipType == 'Capex'">
             <label class="sbilabel">Cash Replenishment</label>
-            <select [(ngModel)]="atmSel.cashRepl" class="sbiselect form-control">
+            <select [(ngModel)]="atmSel.cashRepl" class="sbiselect form-control"  (change)="cashRepUpdtd()">
                 <option  value="undefined" disabled >-- Select One --</option>            
                 <option *ngFor="let oemIn of cashRepList" [ngValue]="oemIn">{{oemIn}}</option>
             </select>
@@ -119,11 +119,11 @@
     </div>
 
     <div class="row col-md-12">
-        <div class="col-md-3">
-            <label class="sbilabel">OS Information</label>
-            <select [(ngModel)]="atmSel.os" class="sbiselect form-control"> 
-                <option value="undefined" disabled >-- Select One --</option>            
-                <option *ngFor="let os of osList" [ngValue]="os">{{os}}</option>
+        <div class="col-md-3" *ngIf="atmSel.ownershipType == 'Capex'">
+            <label class="sbilabel">CRA Agency</label>
+            <select [(ngModel)]="atmSel.craAgency" class="sbiselect form-control">
+                <option  value="undefined" disabled >-- Select One --</option>            
+                <option *ngFor="let craIn of craAgencyList" [ngValue]="craIn">{{craIn}}</option>
             </select>
         </div>
         <div class="col-md-3">
@@ -131,6 +131,13 @@
             <select [(ngModel)]="atmSel.networkType" class="sbiselect form-control"> 
                 <option value="undefined" disabled >-- Select One --</option>            
                 <option *ngFor="let nwType of nwTypeList" [ngValue]="nwType">{{nwType}}</option>
+            </select>
+        </div>
+        <div id="row2Sel3" class="col-md-3">
+            <label class="sbilabel">Site Type</label>
+            <select [(ngModel)]="atmSel.siteType" class="sbiselect form-control">
+                <option value="undefined" disabled >-- Select One --</option>
+                <option *ngFor="let site of siteList" [ngValue]="site">{{site}}</option>
             </select>
         </div>
     </div>

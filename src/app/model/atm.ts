@@ -7,16 +7,19 @@ import { ATMAuxInfo } from 'src/app/model/atmaux';
 export class ATM 
 {
   atmId: string;
-  atmType: string;
-  siteType: string;
   ownershipType: string;
-  networkType: string;
+  phase: string;
   oem: string;
   model: string;
-  phase: string;
+  atmType: string;
+  os: string;
+  supplier: string;
   msVendor: string;
   cashRepl: string;
-
+  craAgency: string;
+  networkType: string;
+  siteType: string;
+  
   address1: string;
   address2: string;
   address3: string;
@@ -26,15 +29,33 @@ export class ATM
   district: string;
   state: string;
   popGroup: string;
-  landmark: string;
-  atmSite: string;
+  landmark: string;  
 
   atmNetwork: ATMNetwork;
   atmAuxInfo: ATMAuxInfo;
 
   ownerBranch: Branch;
   cashLinkBranch: Branch;
-  os: String;
-  supplier: String;
 
+  public static fromJson(jsonStr: any): ATM
+  {
+    if(jsonStr == null)
+    {
+      return new ATM();
+    }
+    return Object.assign(new ATM(), jsonStr, {atmAuxInfo : ATMAuxInfo.fromJson(jsonStr.atmAuxInfo)});
+  }
+
+  public static copyJson(fromObj: ATM, toObj: ATM): ATM
+  {
+    if(fromObj == null)
+    {
+      return new ATM();
+    }
+    if(toObj == null)
+    {
+      toObj = new ATM();
+    }
+    return Object.assign(toObj, fromObj, {atmAuxInfo : ATMAuxInfo.copyJson(toObj.atmAuxInfo, fromObj.atmAuxInfo)})
+  }
 }

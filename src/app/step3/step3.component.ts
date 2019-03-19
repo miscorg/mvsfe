@@ -8,17 +8,21 @@ import { ATMAuxInfo } from 'src/app/model/atmaux';
 import { Observable, of } from 'rxjs';
 import {debounceTime, distinctUntilChanged, map, switchMap, tap, catchError} from 'rxjs/operators';
 import { BranchPeopleData } from 'src/app/model/branchpeopledata';
+import { NgbDateAdapter, NgbDateNativeAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { ATMNetwork } from 'src/app/model/atmnw';
 
 @Component({
   selector: 'app-step3',
   templateUrl: './step3.component.html',
-  styleUrls: ['./step3.component.scss']
+  styleUrls: ['./step3.component.scss'],
+  providers: [{provide: NgbDateAdapter, useClass: NgbDateNativeAdapter}]
 })
 export class Step3Component implements OnInit {
 
   branchObj: Branch = new Branch();
   atmObj: ATM = new ATM();
   atmAuxInfo: ATMAuxInfo = new ATMAuxInfo();
+  atmNetwork: ATMNetwork = new ATMNetwork();
 
   branchManager: Pfhrms = new Pfhrms();
   atmOfficer: Pfhrms = new Pfhrms();
@@ -41,13 +45,21 @@ export class Step3Component implements OnInit {
 
     // let backmove: boolean = this._route.snapshot.paramMap.has("direction");
 
-    this.atmObj = JSON.parse(sessionStorage.getItem("atmSel"));
+    this.atmObj = ATM.fromJson(JSON.parse(sessionStorage.getItem("atmSel")));
     if(this.atmObj.atmAuxInfo)
     {
       this.atmAuxInfo = this.atmObj.atmAuxInfo;
     }
     else {
       this.atmObj.atmAuxInfo = this.atmAuxInfo;
+    }
+
+    if(this.atmObj.atmNetwork)
+    {
+      this.atmNetwork = this.atmObj.atmNetwork;
+    }
+    else {
+      this.atmObj.atmNetwork = this.atmNetwork;
     }
 
     this.branchObj = JSON.parse(sessionStorage.getItem("branchObj"));
