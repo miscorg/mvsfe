@@ -59,6 +59,16 @@ export class MvsServiceService {
   {
     return this.httpClient.get(mvsUrl + "/user/userSearch/" + mrTxt, options);
   }
+  
+  public searchCashBranches(brTxt: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/branch/cashlink/" + brTxt, options);
+  }
+  
+  public searchOwnerBranches(brTxt: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/branch/owner/" + brTxt, options);
+  }
 
   public saveAtm(atmIn: ATM): Observable<any>
   {

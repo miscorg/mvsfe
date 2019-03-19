@@ -16,22 +16,30 @@
         </div>
     </div>
 
+    <ng-template #rt let-r="result" let-t="term">
+        <ngb-highlight [result]="r.branchId + ' - ' + r.branchName" [term]="t"></ngb-highlight>
+    </ng-template>
+            
     <div class="row sbirow">
         <div class="col-md-3 form-group"></div>
         <div class="col-md-4">
             <label class="sbilabel">Select Cash Link Branch:</label>                
-            <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='cashLink'">
+            <!-- <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='cashLink'">
                 <option  value="undefined" disabled>-- Select One --</option>
                 <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
-            </select>
+            </select> -->
+            <input class="form-control" type="text" *ngIf="brtype!='cashLink'" disabled>
+            <input class="form-control" type="text" *ngIf="brtype=='cashLink'" [(ngModel)]="branch" [ngbTypeahead]="searchCashBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='cashLink'" (change)="updateATMs()">
         </div>
 
         <div class="col-md-4">
             <label class="sbilabel">Select Owner Branch:</label>                
-            <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='owner'">
+            <!-- <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='owner'">
                 <option  value="undefined" disabled >-- Select One --</option>
                 <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
-            </select>
+            </select> -->
+            <input class="form-control" type="text" *ngIf="brtype!='owner'" disabled>
+            <input class="form-control" type="text" *ngIf="brtype=='owner'" [(ngModel)]="branch" [ngbTypeahead]="searchOwnerBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='owner'" (change)="updateATMs()">            
         </div>
     </div>
 

@@ -7,6 +7,8 @@ import { JsonPipe } from '@angular/common';
 import { ATMNetwork } from 'src/app/model/atmnw';
 import { ATMAuxInfo } from 'src/app/model/atmaux';
 import { FieldValues } from 'src/app/model/field-values';
+import { Observable, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
 
 const OWNER_KEY = 'ownershipType';
 const PHASES_KEY = 'phases';
@@ -283,6 +285,32 @@ export class Step2Component implements OnInit {
     });
   }
     
+  searchCashBr = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    switchMap(term => term.length < 4 ? [] : 
+      this.mvsService.searchCashBranches(term).pipe(
+        catchError(() => {
+          return of([]);
+        }))
+    )
+  );
+
+  searchOwnerBr = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    switchMap(term => term.length < 4 ? [] : 
+      this.mvsService.searchCashBranches(term).pipe(
+        catchError(() => {
+          return of([]);
+        }))
+    )
+  );
+
+  brformatter = x => x.branchId;
+  
   prevPage()
   {
     this._router.navigate(["angstep1"]);
