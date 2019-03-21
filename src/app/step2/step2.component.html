@@ -155,14 +155,28 @@
             <legend>ATM Info</legend>
             <div class="row">
                 <label class="col-md-2" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
-                <input *ngIf="branch" class="col-md-2 form-control" type="text" [(ngModel)]="branch.branchPinCode" placeholder="Enter Pincode">
+                <input class="col-md-2 form-control" type="text" [(ngModel)]="atmSel.pincode" placeholder="Enter Pincode">
             </div>
             <div class="row sbirow">
                 <div class="col-md-10">
                     <!-- <textarea style="width:100%"></textarea> -->
-                    <input class="form-control" type="text" [(ngModel)]="atmSel.address1" placeholder="Address 1">
-                    <input class="form-control" type="text" [(ngModel)]="atmSel.address2" placeholder="Address 2">
-                    <input class="form-control" type="text" [(ngModel)]="atmSel.address3" placeholder="Address 3">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Building/Society</label>
+                    <input class="form-control col-md-9" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.address1" placeholder="Building/Society">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Street/Road:</label>
+                    <input class="form-control col-md-9" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.address2" placeholder="Street/Road">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Area:</label>
+                    <input class="form-control col-md-9" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.address3" placeholder="Area">
+                    <label class="sbilabel col-md-2" style="text-align:right;">State:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.state">
+                    <label class="sbilabel col-md-2" style="text-align:right;">District:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.district">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Sub District:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.subDistrict">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Taluk:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.taluk">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Village:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.village">
+
                 </div>
             </div>
 

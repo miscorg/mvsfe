@@ -28,6 +28,7 @@ export class ATM
   subDistrict: string;
   district: string;
   state: string;
+  pincode: string;
   popGroup: string;
   landmark: string;  
 
