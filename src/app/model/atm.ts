@@ -3,6 +3,7 @@ import { BranchPeopleData } from 'src/app/model/branchpeopledata';
 import { Branch } from 'src/app/model/branch';
 import { ATMNetwork } from 'src/app/model/atmnw';
 import { ATMAuxInfo } from 'src/app/model/atmaux';
+import { Pincode } from './pincode';
 
 export class ATM 
 {
@@ -28,10 +29,10 @@ export class ATM
   subDistrict: string;
   district: string;
   state: string;
-  pincode: string;
   popGroup: string;
   landmark: string;  
 
+  pincode: Pincode;
   atmNetwork: ATMNetwork;
   atmAuxInfo: ATMAuxInfo;
 
