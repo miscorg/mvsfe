@@ -6,7 +6,7 @@ import { DashboardList } from "src/app/model/dashboardList";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.sass']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   dashboardData:DashboardList[]=[];

@@ -1,10 +1,10 @@
 
-<div class="container">
+<div class="container container-wrap">
 
     <app-header currTab="STEP2"></app-header>
     <div class="row sbirow">
         <div class="col-md-3">
-            <label>Branch Type:</label>
+            <label>Select Branch Type:</label>
         </div>
         <div class="col-md-4">
             <label class="sbilabel">Cash Link Branch</label>
@@ -15,7 +15,7 @@
             <input type="radio" [(ngModel)]="brtype" value="owner" (change)="branch=null"/>
         </div>
     </div>
-
+    
     <ng-template #rt let-r="result" let-t="term">
         <ngb-highlight [result]="r.branchId + ' - ' + r.branchName" [term]="t"></ngb-highlight>
     </ng-template>
@@ -44,20 +44,20 @@
     </div>
 
     <div class="row sbirow">
-        <div class="col-md-5">
+        <div class="col-md-7">
             <label class="sbilabel">Select ATM:</label>                
             <select [(ngModel)]="atmSeln" class="sbiselect form-control" (change)=updateATMData()>
                 <option [value]="atmDummy" disabled >-- Select One --</option>
                 <option *ngFor="let branchin of atmList" [ngValue]="branchin">{{branchin.atmId}}</option>
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <label class="sbilabel">ATM Type</label>
             <input type="text" [(ngModel)]="atmSel.atmType" class="sbitxt form-control">
         </div>    
     </div>
         
-    <div class="row sbirow col-md-12">
+    <div class="row sbirow ">
         <div id="row2Sel3" class="col-md-3">
             <label class="sbilabel">Ownership Type</label>
             <select [(ngModel)]="atmSel.ownershipType" class="sbiselect form-control" (change)="ownershipUpdtd()">
@@ -88,7 +88,7 @@
         </div>
     </div>
     
-    <div class="row col-md-12">        
+    <div class="row sbirow">        
         <div class="col-md-3">
             <label class="sbilabel">OS Information</label>
             <select [(ngModel)]="atmSel.os" class="sbiselect form-control"> 
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <div class="row col-md-12">
+    <div class="row sbirow">
         <div class="col-md-3" *ngIf="atmSel.ownershipType == 'Capex'">
             <label class="sbilabel">CRA Agency</label>
             <select [(ngModel)]="atmSel.craAgency" class="sbiselect form-control">
@@ -150,12 +150,16 @@
         </div>
     </div>
         
-    <div class="row sbirow">
-        <fieldset class="sbifieldset col-md-12">
-            <legend>ATM Info</legend>
+    <div class="col-md-12 atminfo">
+       <div class="row">
+           <div class="card ">
+             <div class="card-body">
+                <legend>ATM Info</legend>
             <div class="row">
-                <label class="col-md-2" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
-                <input class="col-md-2 form-control" type="text" [(ngModel)]="atmSel.pincode" placeholder="Enter Pincode">
+                 <div class="col-md-10">
+                <label class="col-md-2 sbilabel" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
+                <input class="col-md-2 form-control" style="display:inline;margin-top:0.5em;"type="text" [(ngModel)]="atmSel.pincode" placeholder="Enter Pincode">
+                 </div>
             </div>
             <div class="row sbirow">
                 <div class="col-md-10">
@@ -234,13 +238,16 @@
                     </select>
                 </div>
             </div>
-        </fieldset>
+        
+        </div>
+        </div>
+       </div>
     </div>
                 
     <div class="sbirow">
         <div>
-            <button type="button" class="btn btn-info" (click)="prevPage()">Previous</button>
-            <button type="button" class="btn btn-info" style="float:right" (click)="nextPage()" [disabled]="atmSel.atmId == null">Next</button>
+            <button type="button" class="btn btn-primary" (click)="prevPage()">Previous</button>
+            <button type="button" class="btn btn-primary" style="float:right" (click)="nextPage()" [disabled]="atmSel.atmId == null">Next</button>
         </div>
     </div>
 
