@@ -7,7 +7,7 @@ export class ATMAuxInfo
   atmId: string;
   targetDate: Date;
   tmkAvailable: boolean;
-  tmkChecksum: boolean;
+  tmkChecksum: string;
   auxField1: boolean;
   auxField2: boolean;
   auxField3: boolean;
@@ -25,7 +25,7 @@ export class ATMAuxInfo
     {
       return new ATMAuxInfo();
     }
-    return Object.assign(new ATMAuxInfo(), jsonStr, {targetDate : new Date(jsonStr.targetDate)})
+    return Object.assign(new ATMAuxInfo(), jsonStr, {targetDate : jsonStr.targetDate == null ? null: new Date(jsonStr.targetDate)})
   }
 
   public static copyJson(fromObj: ATMAuxInfo, toObj: ATMAuxInfo): ATMAuxInfo

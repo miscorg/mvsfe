@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -13,6 +13,9 @@ import { Step3Component } from './step3/step3.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Step4Component } from './step4/step4.component';
 import { HeaderComponent } from './header/header.component';
+import { ChkSumDirective } from './chk-sum.directive';
+import { LhoComponent } from './lho/lho.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,16 @@ import { HeaderComponent } from './header/header.component';
     Step3Component,
     DashboardComponent,
     Step4Component,
-    HeaderComponent
+    HeaderComponent,
+    ChkSumDirective,
+    LhoComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgbModule
   ],

@@ -23,4 +23,9 @@ export class DashboardComponent implements OnInit {
   dataSet(){
     this._router.navigate(['/angstep2'])
   }
+
+  lhoData()
+  {
+    this._router.navigate(['/lhodata'])    
+  }
 }

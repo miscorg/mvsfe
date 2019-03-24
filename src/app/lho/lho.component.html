@@ -1,0 +1,67 @@
+<div class="container  container-wrap" >
+    <div class="row" > 
+        <div class="col-md-12 sbirow">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <label class="col-md-12 searchLabel" style="text-align:center;">LHO Form </label>
+                    </div>
+
+                    <div class="row sbirow" >                        
+                        <label class="col-md-2">LHO Id:</label>
+                        <input class="col-md-3 form-control" type="text" [(ngModel)]="lho.lhoId">
+
+                        <label class="col-md-2">LHO Name:</label>
+                        <input class="col-md-3 form-control" type="text" [(ngModel)]="lho.lhoName">
+                        
+                    </div>  
+                </div>
+            </div>     
+        </div>  
+    </div>  
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <label class="col-md-12 searchLabel" style="text-align:center;">LHO People Data: </label>
+                </div>
+                
+                <div class="row sbirow" >                        
+                    <label class="col-md-4">PF ID:</label>
+                    <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" (selectItem)="updateLhoPplData($event)">
+                </div>  
+                <div class="row sbirow" >                      
+                    <label class="col-md-4">Name:</label>
+                    <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF.name" disabled>
+                </div>  
+                <div class="row sbirow" >      
+                    <label class="col-md-4">Phone:</label>
+                    <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF.mobileNumber" disabled>
+                </div>
+                <div class="row sbirow">
+                    <label class="col-md-4">Email ID:</label>
+                    <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF.emailIdOfficial" disabled>
+                </div>
+                <div class="row sbirow">
+                    <label class="col-md-4">Designated Email ID:</label>
+                    <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF.emailIdDesignated" disabled>
+                </div>
+            </div>
+        </div>     
+    </div>      
+
+    <div class="sbirow">
+        <div>
+            <button type="button" class="btn btn-primary" (click)="prevPage()">Back</button>
+            <button type="button" class="btn btn-primary" style="float:right" (click)="submit()" >Submit</button>
+        </div>
+    </div>
+        
+
+  <app-footer></app-footer>  
+</div>
+    
+<ng-template #lhoppl let-r="result" let-t="term">
+    <ngb-highlight [result]="r.pfId + ' - ' + r.name" [term]="t"></ngb-highlight>
+</ng-template>

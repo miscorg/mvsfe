@@ -13,6 +13,11 @@ export class Step1Component implements OnInit {
   ngOnInit() {
   }
 
+  dashBd()
+  {
+    this._router.navigate([""]);
+  }
+
   nextPage()
   {
     sessionStorage.clear();

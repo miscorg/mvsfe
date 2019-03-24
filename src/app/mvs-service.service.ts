@@ -70,6 +70,11 @@ export class MvsServiceService {
     return this.httpClient.get(mvsUrl + "/branch/owner/" + brTxt, options);
   }
 
+  public searchPinCodes(pinStr: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/atm/pincode/" + pinStr, options);
+  }
+
   public saveAtm(atmIn: ATM): Observable<any>
   {
     console.log(atmIn);

@@ -16,18 +16,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <label class="col-md-4 searchLabel">Branch Manager: </label>
-                        <input class="form-control col-md-6" type="text" [(ngModel)]="branchManager" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
-                         <ng-template #rt let-r="result" let-t="term">
-                            <ngb-highlight [result]="r.pfId + ' - ' + r.name" [term]="t"></ngb-highlight>
-                         </ng-template>
+                        <label class="col-md-12 searchLabel" style="text-align:center;">Branch Manager: </label>
+                        <!-- <input class="form-control col-md-6" type="text" [(ngModel)]="branchManager" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt"> -->
                     </div>
+
+                    <ng-template #mgr let-r="result" let-t="term">
+                        <ngb-highlight [result]="r.pfId + ' - ' + r.name" [term]="t"></ngb-highlight>
+                    </ng-template>
                    
-                    <div class="row sbirow" >
-                        
-                            <label class="col-md-4">PF ID:</label>
-                            <input class="col-md-6 form-control" type="text" [(ngModel)]="branchManager.pfId" disabled>
-                        
+                    <div class="row sbirow" >                        
+                        <label class="col-md-4">PF ID:</label>
+                        <input class="col-md-6 form-control" type="text" [(ngModel)]="branchManager" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="mgr">
                     </div>  
                     <div class="row sbirow" >  
                         
@@ -56,14 +55,13 @@
             <div class="card">
                 <div class="card-body">
                      <div class="row " >      
-    <label class="col-md-4 searchLabel">ATM Officer: </label>
-    <input class="form-control col-md-6" type="text" [(ngModel)]="atmOfficer" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="rt">
+    <label class="col-md-12 searchLabel" style="text-align:center;">ATM Officer: </label>
   </div>
         
   
       <div class="row sbirow">
           <label class="col-md-4">PF ID:</label>
-          <input class="col-md-6 form-control" type="text" [(ngModel)]="atmOfficer.pfId" disabled>
+          <input class="col-md-6 form-control" type="text" [(ngModel)]="atmOfficer" [ngbTypeahead]="search" [inputFormatter]="formatter" [resultTemplate]="mgr">          
       </div>
       <div class="row sbirow">
           <label class="col-md-4">Name:</label>
@@ -111,7 +109,9 @@
         <div class="input-group">
         <input class="form-control" [(ngModel)]="atmAuxInfo.targetDate" ngbDatepicker #d="ngbDatepicker">
         <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar fa fa-calendar" (click)="d.toggle()" type="button"></button>
+        <button class="btn btn-outline-secondary calendar " (click)="d.toggle()" type="button">
+            <i class="fa fa-calendar"></i>
+        </button>
         </div>    
         </div>
         <!-- </div> -->

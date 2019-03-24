@@ -9,6 +9,8 @@ import { ATMAuxInfo } from 'src/app/model/atmaux';
 import { FieldValues } from 'src/app/model/field-values';
 import { Observable, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap, catchError } from 'rxjs/operators';
+import { Pincode } from 'src/app/model/pincode';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 
 const OWNER_KEY = 'ownershipType';
 const PHASES_KEY = 'phases';
@@ -40,8 +42,9 @@ export class Step2Component implements OnInit {
   atmDummy: ATM = new ATM();
   atmNetwork: ATMNetwork = new ATMNetwork();
   atmAuxInfo: ATMAuxInfo = new ATMAuxInfo();
+  pinCode: Pincode = new Pincode();
 
-  branch: Branch = null;
+  branch: Branch = new Branch();
   brtype: string = "cashLink";
 
   fieldVals: FieldValues[] = [];  
@@ -57,9 +60,12 @@ export class Step2Component implements OnInit {
   nwTypeList: string[] = [];
   siteList: string[] = [];
   
+  auxFormGrp: FormGroup = null;
+
   backmove: boolean = false;
 
   constructor(private mvsService: MvsServiceService,
+              private _fb: FormBuilder,
               private _route: ActivatedRoute,
               private _router: Router) { }
 
@@ -67,46 +73,62 @@ export class Step2Component implements OnInit {
   {
     
     this.backmove = this._route.snapshot.paramMap.has("direction");
-    
-    this.mvsService.fetchCashBranches().subscribe(brIn => {
-      console.log(brIn);
-      this.cashbranchList = Branch.fromJsonArray(brIn);
-      if(this.backmove)
-      {
-        let branchObj = Branch.fromJson(JSON.parse(sessionStorage.getItem("branchObj")));
-        let branchObjFromList = this.cashbranchList.find(el => { return el.branchId == branchObj.branchId });
-        if(branchObjFromList)
-        {
-          this.branch = Object.assign(branchObjFromList, branchObj);
-          this.loadAtm();
-        }
-      }
-      else
-      {
-        sessionStorage.clear();
-      }
-    },
-    err => {
-      console.log(err);
-    });
 
-    this.mvsService.fetchOwnerBranches().subscribe(brIn => {
-      console.log(brIn);
-      this.ownerbranchList = brIn;
-      let branchObj = Branch.fromJson(JSON.parse(sessionStorage.getItem("branchObj")));
-      let branchObjFromList = this.cashbranchList.find(el => { return el.branchId == branchObj.branchId });
-      if(branchObjFromList && !this.branch)
-      {
-        this.branch = Object.assign(branchObjFromList, branchObj);
-        this.brtype = "owner";
-        this.loadAtm();
-      }    
-    },
-    err => {
-      console.log(err);
-    });
-    
-    this.loadFieldValues();
+    if(this.backmove)
+    {
+      this.mvsService.fetchCashBranches().subscribe(brIn => {
+        console.log(brIn);
+        this.cashbranchList = Branch.fromJsonArray(brIn);
+          let branchObj = Branch.fromJson(JSON.parse(sessionStorage.getItem("branchObj")));
+          let branchObjFromList = this.cashbranchList.find(el => { return el.branchId == branchObj.branchId });
+          if(branchObjFromList)
+          {
+            this.branch = Object.assign(branchObjFromList, branchObj);
+            this.loadAtm();
+          }
+          else
+          {
+            this.mvsService.fetchOwnerBranches().subscribe(brIn => {
+              console.log(brIn);
+              this.ownerbranchList = brIn;
+              let branchObj = Branch.fromJson(JSON.parse(sessionStorage.getItem("branchObj")));
+              let branchObjFromList = this.cashbranchList.find(el => { return el.branchId == branchObj.branchId });
+              if(branchObjFromList)
+              {
+                this.branch = Object.assign(branchObjFromList, branchObj);
+                this.brtype = "owner";
+                this.loadAtm();
+              }    
+            },
+            err => {
+              console.log(err);
+            });                    
+          }
+      },
+      err => {
+        console.log(err);
+      });
+        
+    }
+    else
+    {
+      sessionStorage.clear();
+      this.loadFieldValues();
+      this.prepareFormGrp();
+    }
+
+  }
+
+  get tmkChkSum(){
+    return this.auxFormGrp.controls['tmkChkSum'];
+  }
+
+  prepareFormGrp()
+  {
+    let chkSum = this.atmAuxInfo.tmkChecksum;
+    this.auxFormGrp = this._fb.group({
+      'tmkChkSum' : [chkSum, [Validators.maxLength(6), Validators.pattern(/[0-9]+/)]]
+    });    
   }
 
   loadAtm()
@@ -124,6 +146,11 @@ export class Step2Component implements OnInit {
 
         this.atmNetwork = this.atmSel.atmNetwork;
         this.atmAuxInfo = this.atmSel.atmAuxInfo;
+        this.pinCode = this.atmSel.pincode;
+
+        this.loadFieldValues();
+        this.ownershipUpdtd();
+        this.prepareFormGrp();
       }
     },
     err => {
@@ -131,8 +158,10 @@ export class Step2Component implements OnInit {
     });
   }
 
-  updateATMs()
+  updateATMs(ev)
   {
+    console.log(ev);
+    this.branch = ev.item;
     console.log(this.branch);
     console.log(this.brtype);
 
@@ -176,6 +205,16 @@ export class Step2Component implements OnInit {
       {
         this.atmSel.atmAuxInfo = this.atmAuxInfo;
       }
+
+      if(this.atmSel.pincode) 
+      {
+        this.pinCode = this.atmSel.pincode;
+      }
+      else
+      {
+        this.atmSel.pincode = this.pinCode;
+      }
+      
     },
     err => {
       console.log(err);
@@ -197,7 +236,9 @@ export class Step2Component implements OnInit {
         {
           this.ownershipTypeList.push(el.value);
         }
-      })
+      });
+
+      this.ownershipUpdtd();
     });
   }
 
@@ -296,7 +337,7 @@ export class Step2Component implements OnInit {
         }))
     )
   );
-
+  
   searchOwnerBr = (text$: Observable<string>) =>
   text$.pipe(
     debounceTime(200),
@@ -310,25 +351,54 @@ export class Step2Component implements OnInit {
   );
 
   brformatter = x => x.branchId;
-  
+
+  searchPinCode = (text$: Observable<string>) =>
+  text$.pipe(
+    debounceTime(200),
+    distinctUntilChanged(),
+    switchMap(term => term.length < 4 ? [] : 
+      this.mvsService.searchPinCodes(term).pipe(
+        catchError(() => {
+          return of([]);
+        }))
+    )
+  );
+
+  pinFormatter = x => x.pincode;
+
+  updatePinCode(ev)
+  {
+    this.pinCode = ev.item;
+    this.atmSel.pincode = this.pinCode;
+  }
+
   prevPage()
   {
     this._router.navigate(["angstep1"]);
   }
 
-  savePage(): boolean
-  {
-    console.log(this.atmSel);
-    sessionStorage.setItem("atmSel", JSON.stringify(this.atmSel));
-    return true;
-  }
-
   nextPage()
   {
+
+    console.log(this.auxFormGrp);
+    if(this.auxFormGrp.invalid)
+    {
+      return;
+    }
+
+    this.atmSel.atmAuxInfo.tmkChecksum = this.auxFormGrp.controls['tmkChkSum'].value;
     console.log(this.atmSel);
     console.log(this.branch);
     sessionStorage.setItem("atmSel", JSON.stringify(this.atmSel));
     sessionStorage.setItem("branchObj", JSON.stringify(this.branch));
     this._router.navigate(["angstep3"]);
   }
+}
+
+export function chkSumValidator(nameRe: RegExp): ValidatorFn 
+{
+  return (control: AbstractControl): {[key: string]: any} | null => {
+    const forbidden = nameRe.test(control.value);
+    return forbidden ? {'digOnly': {value: control.value}} : null;
+  };
 }

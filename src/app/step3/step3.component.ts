@@ -103,7 +103,7 @@ export class Step3Component implements OnInit {
     )
   )
 
-  formatter = x => '';
+  formatter = x => x.pfId;
     
   prevPage()
   {

@@ -77,6 +77,7 @@ export class Step4Component implements OnInit {
     {
       this.atmObj.cashLinkBranch = this.branchObj;
     }
+    console.log(this.atmObj);
     this.mvsService.saveAtm(this.atmObj).subscribe(out => {
       console.log(out);
       this.spinRef.close();

@@ -19,27 +19,23 @@
     <ng-template #rt let-r="result" let-t="term">
         <ngb-highlight [result]="r.branchId + ' - ' + r.branchName" [term]="t"></ngb-highlight>
     </ng-template>
-            
+
+    <ng-template #pc let-r="result" let-t="term">
+        <ngb-highlight [result]="r.pincode" [term]="t"></ngb-highlight>
+    </ng-template>
+    
     <div class="row sbirow">
         <div class="col-md-3 form-group"></div>
         <div class="col-md-4">
             <label class="sbilabel">Select Cash Link Branch:</label>                
-            <!-- <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='cashLink'">
-                <option  value="undefined" disabled>-- Select One --</option>
-                <option *ngFor="let branchin of cashbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
-            </select> -->
             <input class="form-control" type="text" *ngIf="brtype!='cashLink'" disabled>
-            <input class="form-control" type="text" *ngIf="brtype=='cashLink'" [(ngModel)]="branch" [ngbTypeahead]="searchCashBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='cashLink'" (change)="updateATMs()">
+            <input class="form-control" type="text" *ngIf="brtype=='cashLink'" [(ngModel)]="branch" [ngbTypeahead]="searchCashBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='cashLink'" (selectItem)="updateATMs($event)">
         </div>
 
         <div class="col-md-4">
             <label class="sbilabel">Select Owner Branch:</label>                
-            <!-- <select [(ngModel)]="branch" (change)="updateATMs()" class="sbiselect form-control" [disabled]="brtype!='owner'">
-                <option  value="undefined" disabled >-- Select One --</option>
-                <option *ngFor="let branchin of ownerbranchList" [ngValue]="branchin">{{branchin.branchId + ' - ' + branchin.branchName}}</option>
-            </select> -->
             <input class="form-control" type="text" *ngIf="brtype!='owner'" disabled>
-            <input class="form-control" type="text" *ngIf="brtype=='owner'" [(ngModel)]="branch" [ngbTypeahead]="searchOwnerBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='owner'" (change)="updateATMs()">            
+            <input class="form-control" type="text" *ngIf="brtype=='owner'" [(ngModel)]="branch" [ngbTypeahead]="searchOwnerBr" [inputFormatter]="brformatter" [resultTemplate]="rt" [disabled]="brtype!='owner'" (selectItem)="updateATMs($event)">
         </div>
     </div>
 
@@ -158,7 +154,7 @@
             <div class="row">
                  <div class="col-md-10">
                 <label class="col-md-2 sbilabel" style="margin-top: .25em; text-align: right;">PIN CODE:</label>
-                <input class="col-md-2 form-control" style="display:inline;margin-top:0.5em;"type="text" [(ngModel)]="atmSel.pincode" placeholder="Enter Pincode">
+                <input class="col-md-2 form-control" style="display:inline;margin-top:0.5em;"type="text" [(ngModel)]="pinCode" placeholder="Enter Pincode" [ngbTypeahead]="searchPinCode" [inputFormatter]="pinFormatter" [resultTemplate]="pc" (selectItem)="updatePinCode($event)">
                  </div>
             </div>
             <div class="row sbirow">
@@ -171,30 +167,50 @@
                     <label class="sbilabel col-md-2" style="text-align:right;">Area:</label>
                     <input class="form-control col-md-9" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.address3" placeholder="Area">
                     <label class="sbilabel col-md-2" style="text-align:right;">State:</label>
-                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.state">
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="pinCode.stateName">
                     <label class="sbilabel col-md-2" style="text-align:right;">District:</label>
-                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.district">
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="pinCode.districtName">
                     <label class="sbilabel col-md-2" style="text-align:right;">Sub District:</label>
-                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.subDistrict">
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="pinCode.subDistrict">
                     <label class="sbilabel col-md-2" style="text-align:right;">Taluk:</label>
-                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.taluk">
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="pinCode.taluk">
                     <label class="sbilabel col-md-2" style="text-align:right;">Village:</label>
                     <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.village">
+                    <label class="sbilabel col-md-2" style="text-align:right;">Landmark:</label>
+                    <input class="form-control col-md-3" style="display:inline;margin-top:0.5em;" type="text" [(ngModel)]="atmSel.landmark">
 
                 </div>
             </div>
 
             <div class="row sbirow">
-                <div class="col-md-3">
-                    <label>Landmark:</label>
-                    <input class="sbitxt form-control" type="text" [(ngModel)]="atmSel.landmark">
+                <div class="col-md-3" >
+
+                    <div [formGroup]="auxFormGrp">
+                    <label>TMK Set #:</label>
+                    <input class="sbitxt form-control" name="tmkChkSum" type="text" formControlName="tmkChkSum" autocomplete="false">
+                    <div *ngIf="tmkChkSum.invalid && (tmkChkSum.dirty || tmkChkSum.touched)" class="alert alert-danger sbierr">
+                        <div *ngIf="tmkChkSum.errors.pattern"> 
+                            Only Digits Allowed
+                        </div>
+                        <div *ngIf="tmkChkSum.errors.maxlength"> 
+                            Max 6 Digits Allowed
+                        </div>                        
+                    </div>
+                    </div>
 
                     <label>TMK Available with Branch:</label>
-                    <select class="sbiselect form-control">
-                        <option>Y</option>
-                        <option>N</option>
+                    <select class="sbiselect form-control" [(ngModel)]="atmAuxInfo.tmkAvailable">
+                        <option [ngValue]="true">Y</option>
+                        <option [ngValue]="false">N</option>
                     </select>
-                                
+
+                    <ng-container *ngIf="atmSel && atmSel.ownershipType == 'CAPEX' && atmSel.siteType == 'Offsite' && atmSel.phase == 'Prior to Phase X'">                            
+                    <label>TMK Replacement:</label>
+                    <select class="sbiselect form-control" [(ngModel)]="atmAuxInfo.auxField5">
+                        <option [ngValue]="true">Y</option>
+                        <option [ngValue]="false">N</option>
+                    </select>
+                    </ng-container>
                 </div>
 
                 <div class="col-md-4">
@@ -230,12 +246,6 @@
                             <input class="sbitxt form-control" type="text" [(ngModel)]="atmNetwork.defaultGateway">
                         </div>
                     </fieldset>
-
-                    <label>SIS Required :</label>
-                    <select [(ngModel)]="atmAuxInfo.tmkChecksum" class="sbiselect form-control" >
-                            <option  value="Y">Y</option>
-                            <option  value="N">N</option>
-                    </select>
                 </div>
             </div>
         

@@ -25,10 +25,6 @@ export class ATM
   address2: string;
   address3: string;
   village: string;
-  taluk: string;
-  subDistrict: string;
-  district: string;
-  state: string;
   popGroup: string;
   landmark: string;  
 
