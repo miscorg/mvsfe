@@ -39,6 +39,9 @@ button.btn-left{margin-right: 20px;}
 div.sbirow {
     margin-top: 1em;
 }
+div.sbicloserow {
+    margin-top: .5em;
+}
 .container-wrap{
     background: #fff;
    box-shadow: 0 0 5px #ccc;
@@ -50,7 +53,7 @@ body{
     background-color:#f2f2f2 
 }
 .footer{
-      padding: 5px;
+    padding: 5px;
     border-top: 4px solid #52b4db;
     background-color: #414141;
     color: #fff;
@@ -68,5 +71,11 @@ div.sbierr {
 
 label.searchLabel {
     color: blue;
-   font-weight: bold;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+
+label.sbiLightLabel{
+    margin-bottom: 0;
+    transform: translateY(10%);
 }

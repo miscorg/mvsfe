@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ATM } from 'src/app/model/atm';
+import { Pfhrms } from 'src/app/model/pfhrms';
+import { LhoWrapper } from 'src/app/model/lho-wrapper';
 
 let options = { headers: new HttpHeaders().set('Content-Type', 'application/json').append('Access-Control-Allow-Origin', '*') }
 // const mvsUrl = 'http://localhost:9090';
@@ -73,6 +75,38 @@ export class MvsServiceService {
   public searchPinCodes(pinStr: string): Observable<any>
   {
     return this.httpClient.get(mvsUrl + "/atm/pincode/" + pinStr, options);
+  }
+
+  public fetchLhoList(): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/", options);
+  }
+
+  public fetchNetworkList(lhoId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/networks/" + lhoId, options);
+  }
+
+  public fetchModuleList(lhoId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/modules/" + lhoId, options);
+  }
+
+  public fetchRegionList(moduleId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/regions/" + moduleId, options);
+  }
+
+  public savePeople(nwId: string, regionId: string, agmIn: Pfhrms, chMgrIn: Pfhrms, cmcsRboIn: Pfhrms): Observable<any>
+  {
+    console.log(nwId);
+    console.log(regionId);
+    let lhoWrapper: LhoWrapper = new LhoWrapper();
+    lhoWrapper.agm = agmIn;
+    lhoWrapper.chMgr = chMgrIn;
+    lhoWrapper.cmcsRbo = cmcsRboIn;
+
+    return this.httpClient.put(mvsUrl + "/lho/save/" + nwId + "/" + regionId , lhoWrapper, options);
   }
 
   public saveAtm(atmIn: ATM): Observable<any>
