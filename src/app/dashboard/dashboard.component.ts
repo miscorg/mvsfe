@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.mvsService.fetchDashboardlist().subscribe(response => {
       this.dashboardData=response;
+      console.log(this.dashboardData);
     })
   }
   gotoStep(){

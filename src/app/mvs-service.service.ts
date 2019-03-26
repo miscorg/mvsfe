@@ -52,7 +52,7 @@ export class MvsServiceService {
 
   public fetchDashboardlist(): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/api/dashboard" , options);
+    return this.httpClient.get(mvsUrl + "/dashboard" , options);
   }
   
   public searchMgr(mrTxt: string): Observable<any>
@@ -80,4 +80,5 @@ export class MvsServiceService {
     console.log(atmIn);
     return this.httpClient.put(mvsUrl + "/atm/"+atmIn.atmId , atmIn, options);
   }
+
 }
