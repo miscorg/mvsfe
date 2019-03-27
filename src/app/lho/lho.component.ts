@@ -47,6 +47,7 @@ export class LhoComponent implements OnInit {
               private _router: Router) { }
 
   ngOnInit() {
+    this.loadLhos();
   }
 
   searchHrms = (text$: Observable<string>) =>

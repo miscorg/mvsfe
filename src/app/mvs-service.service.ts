@@ -7,7 +7,7 @@ import { Pfhrms } from 'src/app/model/pfhrms';
 import { LhoWrapper } from 'src/app/model/lho-wrapper';
 
 let options = { headers: new HttpHeaders().set('Content-Type', 'application/json').append('Access-Control-Allow-Origin', '*') }
-// const mvsUrl = 'http://localhost:9090';
+// const mvsUrl = 'http://localhost:8080';
 const mvsUrl = environment.serviceUrl;
 
 @Injectable({
