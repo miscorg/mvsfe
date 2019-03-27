@@ -19,7 +19,7 @@
                                         <label class="sbilabel">Select LHO</label>
                                         <select [(ngModel)]="lho" class="sbiselect form-control" (change)="loadNetworks()">
                                             <option value="undefined" disabled >-- Select One --</option>            
-                                            <option *ngFor="let lhoIn of lhoList" [ngValue]="lhoIn">{{lhoIn.name}}</option>
+                                            <option *ngFor="let lhoIn of lhoList" [ngValue]="lhoIn">{{lhoIn.lhoName}}</option>
                                         </select>
                                     </div>
                             
@@ -27,7 +27,7 @@
                                         <label class="sbilabel">Select Network</label>
                                         <select [(ngModel)]="network" class="sbiselect form-control" (change)="loadAGM()">
                                             <option value="undefined" disabled >-- Select One --</option>            
-                                            <option *ngFor="let networkIn of networkList" [ngValue]="networkIn">{{network.networkName}}</option>
+                                            <option *ngFor="let networkIn of networkList" [ngValue]="networkIn">{{networkIn.networkName}}</option>
                                         </select>
                                     </div>                        
                                 </div>  
