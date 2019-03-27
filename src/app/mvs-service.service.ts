@@ -99,7 +99,7 @@ export class MvsServiceService {
 
   public fetchAGM(nwId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/lho/agm/" + nwId, options);    
+    return this.httpClient.get(mvsUrl + "/lho/afgm/" + nwId, options);    
   }
 
   public fetchChMgr(regionId: string): Observable<any>
@@ -113,15 +113,16 @@ export class MvsServiceService {
   }
 
   public savePeople(nwId: string, regionId: string, agmIn: Pfhrms, chMgrIn: Pfhrms, cmcsRboIn: Pfhrms): Observable<any>
-  {
-    console.log(nwId);
-    console.log(regionId);
+  {    
     let lhoWrapper: LhoWrapper = new LhoWrapper();
-    lhoWrapper.agm = agmIn;
-    lhoWrapper.chMgr = chMgrIn;
-    lhoWrapper.cmcsRbo = cmcsRboIn;
+    console.log(lhoWrapper);
+    lhoWrapper.networkId = nwId;
+    lhoWrapper.regionId = regionId;
+    lhoWrapper.agmatmPF = agmIn.pfId;
+    lhoWrapper.chanelManager = chMgrIn.pfId;
+    lhoWrapper.cmcsrrbo = cmcsRboIn.pfId;
 
-    return this.httpClient.put(mvsUrl + "/lho/save/" + nwId + "/" + regionId , lhoWrapper, options);
+    return this.httpClient.post(mvsUrl + "/lho/user", lhoWrapper, options);
   }
 
   public saveAtm(atmIn: ATM): Observable<any>

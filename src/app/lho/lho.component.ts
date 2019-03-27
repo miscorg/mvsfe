@@ -75,6 +75,8 @@ export class LhoComponent implements OnInit {
 
   loadNetworks()
   {
+    this.network = null;
+    this.agmatmPF = new Pfhrms();
     if(this.lho)
     {
       this.mvsService.fetchNetworkList(this.lho.lhoId).subscribe(nwListJson => {
@@ -88,13 +90,19 @@ export class LhoComponent implements OnInit {
     if(this.network)
     {
       this.mvsService.fetchAGM(this.network.networkId).subscribe(agmjson => {
-        this.agmatmPF = agmjson;
+        console.log(agmjson);
+        if(agmjson)
+        {
+          this.agmatmPF = agmjson;
+        }
       });
     }
   }
 
   loadNetworksch()
   {
+    this.chnetwork = null;
+    this.loadModules();
     if(this.chlho)
     {
       this.mvsService.fetchNetworkList(this.chlho.lhoId).subscribe(nwListJson => {
@@ -105,6 +113,8 @@ export class LhoComponent implements OnInit {
 
   loadModules()
   {
+    this.module = null;
+    this.loadRegions();
     if(this.chnetwork)
     {
       this.mvsService.fetchModuleList(this.chnetwork.networkId).subscribe(moduleListJson => {
@@ -115,6 +125,10 @@ export class LhoComponent implements OnInit {
 
   loadRegions()
   {
+    this.region = null;
+    this.chMgr = new Pfhrms();
+    this.cmcsRbo = new Pfhrms();
+
     if(this.module)
     {
       this.mvsService.fetchRegionList(this.module.moduleId).subscribe(regionListJson => {
@@ -128,11 +142,17 @@ export class LhoComponent implements OnInit {
     if(this.region)
     {
       this.mvsService.fetchChMgr(this.region.regionId).subscribe(chMgrjson => {
-        this.chMgr = chMgrjson;
+        if(chMgrjson)
+        {
+          this.chMgr = chMgrjson;
+        }
       });
     
       this.mvsService.fetchCmcsRbo(this.region.regionId).subscribe(cmcsjson => {
-        this.cmcsRbo = cmcsjson;
+        if(cmcsjson)
+        {
+          this.cmcsRbo = cmcsjson;
+        }
       });
     }
 

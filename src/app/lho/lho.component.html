@@ -39,7 +39,7 @@
                                     
                                     <div class="row sbicloserow" >                        
                                         <label class="col-md-5 sbiLightLabel">PF ID:</label>
-                                        <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" (selectItem)="updateLhoPplData($event)">
+                                        <input class="col-md-6 form-control" type="text" [(ngModel)]="agmatmPF"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" [disabled]="!this.network || !this.network.networkId">
                                     </div>  
                                     <div class="row sbicloserow" >                      
                                         <label class="col-md-5 sbiLightLabel">Name:</label>
@@ -111,7 +111,7 @@
                                         
                                         <div class="row sbicloserow" >                        
                                             <label class="col-md-5 sbiLightLabel">PF ID:</label>
-                                            <input class="col-md-6 form-control" type="text" [(ngModel)]="chMgr"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" (selectItem)="updateLhoPplData($event)">
+                                            <input class="col-md-6 form-control" type="text" [(ngModel)]="chMgr"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" [disabled]="!this.region || !this.region.regionId">
                                         </div>  
                                         <div class="row sbicloserow" >                      
                                             <label class="col-md-5 sbiLightLabel">Name:</label>
@@ -139,7 +139,7 @@
                                         
                                         <div class="row sbicloserow" >                        
                                             <label class="col-md-5 sbiLightLabel">PF ID:</label>
-                                            <input class="col-md-6 form-control" type="text" [(ngModel)]="cmcsRbo"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" (selectItem)="updateLhoPplData($event)">
+                                            <input class="col-md-6 form-control" type="text" [(ngModel)]="cmcsRbo"  [ngbTypeahead]="searchHrms" [inputFormatter]="lhoFormatter" [resultTemplate]="lhoppl" [disabled]="!this.region || !this.region.regionId">
                                         </div>  
                                         <div class="row sbicloserow" >                      
                                             <label class="col-md-5 sbiLightLabel">Name:</label>

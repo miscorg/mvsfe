@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  serviceUrl: "http://" + window.location.hostname + ":8080"
+  serviceUrl: "http://" + window.location.hostname + ":9090/mvsapp"
 };
 
 /*

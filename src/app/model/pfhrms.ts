@@ -1,6 +1,6 @@
 export class Pfhrms
 {
-  pfId: number;
+  pfId: string;
   name: string;
   mobileNumber: string;
   emailIdOfficial: string;
