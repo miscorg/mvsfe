@@ -79,22 +79,22 @@ export class MvsServiceService {
 
   public fetchLhoList(): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/lho/", options);
+    return this.httpClient.get(mvsUrl + "/lho", options);
   }
 
   public fetchNetworkList(lhoId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/lho/networks/" + lhoId, options);
+    return this.httpClient.get(mvsUrl + "/lho/"+lhoId+"/network", options);
   }
 
-  public fetchModuleList(lhoId: string): Observable<any>
+  public fetchModuleList(networkId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/lho/modules/" + lhoId, options);
+    return this.httpClient.get(mvsUrl + "network/"+networkId+"/module", options);
   }
 
   public fetchRegionList(moduleId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "/lho/regions/" + moduleId, options);
+    return this.httpClient.get(mvsUrl + "module/"+moduleId+"/region", options);
   }
 
   public fetchAGM(nwId: string): Observable<any>
