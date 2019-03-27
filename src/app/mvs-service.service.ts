@@ -89,12 +89,12 @@ export class MvsServiceService {
 
   public fetchModuleList(networkId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "network/"+networkId+"/module", options);
+    return this.httpClient.get(mvsUrl + "/network/"+networkId+"/module", options);
   }
 
   public fetchRegionList(moduleId: string): Observable<any>
   {
-    return this.httpClient.get(mvsUrl + "module/"+moduleId+"/region", options);
+    return this.httpClient.get(mvsUrl + "/module/"+moduleId+"/region", options);
   }
 
   public fetchAGM(nwId: string): Observable<any>

@@ -71,9 +71,17 @@
                                 <div class="row sbirow" >                        
                                     <div class="col-md-3">
                                         <label class="sbilabel">Select LHO</label>
-                                        <select [(ngModel)]="chlho" class="sbiselect form-control" (change)="loadModules()">
+                                        <select [(ngModel)]="chlho" class="sbiselect form-control" (change)="loadNetworksch()">
                                             <option value="undefined" disabled >-- Select One --</option>            
-                                            <option *ngFor="let lhoIn of lhoList" [ngValue]="lhoIn">{{lhoIn.name}}</option>
+                                            <option *ngFor="let lhoIn of lhoList" [ngValue]="lhoIn">{{lhoIn.lhoName}}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label class="sbilabel">Select Network</label>
+                                        <select [(ngModel)]="chnetwork" class="sbiselect form-control" (change)="loadModules()">
+                                            <option value="undefined" disabled >-- Select One --</option>            
+                                            <option *ngFor="let networkIn of chnetworkList" [ngValue]="networkIn">{{networkIn.networkName}}</option>
                                         </select>
                                     </div>
                             

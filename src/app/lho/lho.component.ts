@@ -27,6 +27,7 @@ export class LhoComponent implements OnInit {
   lho: LHO = null;
   network: Network = null;
   chlho: LHO = null;
+  chnetwork: Network = null;
   module: Module = null;
   region: Region = null;
 
@@ -36,6 +37,7 @@ export class LhoComponent implements OnInit {
   
   lhoList: LHO[] = [];
   networkList: Network[] = [];
+  chnetworkList: Network[] = [];
   moduleList: Module[] = [];
   regionList: Region[] = [];
 
@@ -91,11 +93,21 @@ export class LhoComponent implements OnInit {
     }
   }
 
-  loadModules()
+  loadNetworksch()
   {
     if(this.chlho)
     {
-      this.mvsService.fetchModuleList(this.chlho.lhoId).subscribe(moduleListJson => {
+      this.mvsService.fetchNetworkList(this.chlho.lhoId).subscribe(nwListJson => {
+        this.chnetworkList = nwListJson;
+      });
+    }
+  }
+
+  loadModules()
+  {
+    if(this.chnetwork)
+    {
+      this.mvsService.fetchModuleList(this.chnetwork.networkId).subscribe(moduleListJson => {
         this.moduleList = moduleListJson;
       });
     }
