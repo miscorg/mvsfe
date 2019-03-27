@@ -97,6 +97,21 @@ export class MvsServiceService {
     return this.httpClient.get(mvsUrl + "/lho/regions/" + moduleId, options);
   }
 
+  public fetchAGM(nwId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/agm/" + nwId, options);    
+  }
+
+  public fetchChMgr(regionId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/chMgr/" + regionId, options);    
+  }
+
+  public fetchCmcsRbo(regionId: string): Observable<any>
+  {
+    return this.httpClient.get(mvsUrl + "/lho/cmcsRbo/" + regionId, options);    
+  }
+
   public savePeople(nwId: string, regionId: string, agmIn: Pfhrms, chMgrIn: Pfhrms, cmcsRboIn: Pfhrms): Observable<any>
   {
     console.log(nwId);

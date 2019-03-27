@@ -80,6 +80,16 @@ export class LhoComponent implements OnInit {
     }
   }
 
+  loadAGM()
+  {
+    if(this.network)
+    {
+      this.mvsService.fetchAGM(this.network.networkId).subscribe(agmjson => {
+        this.agmatmPF = agmjson;
+      });
+    }
+  }
+
   loadModules()
   {
     if(this.chlho)
@@ -98,6 +108,21 @@ export class LhoComponent implements OnInit {
         this.regionList = regionListJson;
       });
     }
+  }
+
+  loadPeople()
+  {
+    if(this.region)
+    {
+      this.mvsService.fetchChMgr(this.region.regionId).subscribe(chMgrjson => {
+        this.chMgr = chMgrjson;
+      });
+    
+      this.mvsService.fetchCmcsRbo(this.region.regionId).subscribe(cmcsjson => {
+        this.cmcsRbo = cmcsjson;
+      });
+    }
+
   }
 
   prevPage()
