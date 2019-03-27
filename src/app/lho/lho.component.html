@@ -89,7 +89,7 @@
                                         <label class="sbilabel">Select AO/Module</label>
                                         <select [(ngModel)]="module" class="sbiselect form-control" (change)="loadRegions()">
                                             <option value="undefined" disabled >-- Select One --</option>            
-                                            <option *ngFor="let moduleIn of moduleList" [ngValue]="moduleIn">{{module.moduleName}}</option>
+                                            <option *ngFor="let moduleIn of moduleList" [ngValue]="moduleIn">{{moduleIn.moduleName}}</option>
                                         </select>
                                     </div>                        
             
@@ -97,7 +97,7 @@
                                         <label class="sbilabel">Select Region</label>
                                         <select [(ngModel)]="region" class="sbiselect form-control" (change)="loadPeople()">
                                             <option value="undefined" disabled >-- Select One --</option>            
-                                            <option *ngFor="let regionIn of regionList" [ngValue]="regionIn">{{region.regionName}}</option>
+                                            <option *ngFor="let regionIn of regionList" [ngValue]="regionIn">{{regionIn.regionName}}</option>
                                         </select>
                                     </div>                        
                                 </div>  
